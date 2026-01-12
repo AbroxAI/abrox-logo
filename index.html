@@ -3,23 +3,155 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Logo Test</title>
+  <title>Abrox — Transform Your Trading</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config for custom colors
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bg-deep':'#071019',
+            'accent-1':'#6EF08B',
+            'accent-2':'#30D0FF',
+            'brand-magenta':'#D33CF7',
+            'brand-purple':'#6C3BFF'
+          },
+          boxShadow: {
+            'xl-soft': '0 20px 40px rgba(2,6,23,0.6)'
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    :root { background: #071019; color: #fff; }
-    html,body{height:100%;margin:0}
-    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:28px}
-    .card{max-width:640px;width:86%;text-align:center}
-    img.logo{width:56vw;max-width:320px;height:auto;display:block;margin:0 auto 12px auto}
-    p.note{color:#9aa6b2;font-size:14px;margin:0}
+    /* subtle textured background (keeps file standalone) */
+    body {
+      background-color: #071019;
+      background-image:
+        radial-gradient(ellipse at 10% 10%, rgba(255,255,255,0.02) 0px, transparent 40%),
+        radial-gradient(ellipse at 90% 90%, rgba(255,255,255,0.01) 0px, transparent 30%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    /* Nice rounded card radius */
+    .card-radius { border-radius: 18px; }
   </style>
 </head>
-<body>
-  <div class="wrap">
-    <div class="card">
-      <!-- file is expected at assets/abrox-source.jpg -->
-      <img class="logo" src="assets/abrox-source.jpg" alt="Logo">
-      <p class="note">If the logo is missing, open <code>assets/abrox-source.jpg</code> in the repo to confirm upload.</p>
-    </div>
-  </div>
+<body class="min-h-screen text-slate-100 antialiased">
+
+  <!-- NAV -->
+  <header class="px-6 md:px-12 py-6">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <img src="assets/abrox-source.png" alt="Abrox logo" class="w-12 h-12 object-contain rounded-md shadow-lg" />
+        <span class="font-semibold text-xl tracking-tight text-white">Abrox</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="#features" class="text-slate-300 hover:text-white">Features</a>
+        <a href="#pricing" class="text-slate-300 hover:text-white">Pricing</a>
+        <a href="#contact" class="text-slate-300 hover:text-white">Contact</a>
+        <a class="ml-4 inline-flex items-center px-4 py-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-700 hover:to-purple-600 shadow-md" href="#get-started">Get Started</a>
+      </div>
+      <button id="mobileMenuBtn" class="md:hidden inline-flex items-center justify-center p-2 rounded-md bg-slate-800/50 hover:bg-slate-800/60">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-200" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <main class="max-w-6xl mx-auto px-6 md:px-12 pt-12 pb-20">
+    <section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+      <!-- left: text -->
+      <div class="md:col-span-6">
+        <div class="card-radius p-6 md:p-10 bg-gradient-to-b from-slate-900/60 to-slate-900/40 shadow-xl-soft border border-white/3">
+          <h1 class="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
+            Transform Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-magenta to-brand-purple">Way of Trading</span>
+          </h1>
+          <p class="mt-4 text-slate-300 max-w-xl">
+            Professional-grade signals, real-time volume analytics and a clean, fast workflow — build confidence and trade with precision.
+          </p>
+
+          <div class="mt-8 flex gap-4 flex-wrap">
+            <a id="get-started" href="#pricing" class="inline-flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-indigo-600 to-purple-500 rounded-lg text-white font-semibold shadow-lg hover:scale-[1.01] transform transition">Get Started <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L13.586 11H4a1 1 0 110-2h9.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg></a>
+
+            <a href="#contact" class="inline-flex items-center gap-3 px-5 py-3 border border-slate-700 rounded-lg text-slate-200 hover:text-white">Request Demo</a>
+          </div>
+
+          <div class="mt-6 text-sm text-slate-400">Trusted by traders worldwide • Lightweight & private</div>
+        </div>
+      </div>
+
+      <!-- right: logo card -->
+      <div class="md:col-span-6 flex items-center justify-center md:justify-end">
+        <div class="card-radius bg-gradient-to-tr from-slate-900/50 to-slate-900/30 p-6 md:p-8 shadow-xl-soft border border-white/4 flex items-center justify-center">
+          <!-- Logo size tuned for mobile -> desktop -->
+          <img src="assets/abrox-source.png" alt="Abrox logo" class="w-40 md:w-56 lg:w-72 object-contain drop-shadow-lg" style="filter: drop-shadow(0 8px 18px rgba(0,0,0,0.7));" />
+        </div>
+      </div>
+    </section>
+
+    <!-- small feature strip -->
+    <section id="features" class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-slate-900/50 p-6 rounded-xl border border-white/3">
+        <h3 class="text-lg font-semibold">Real-time Volume</h3>
+        <p class="mt-2 text-slate-300">High-frequency T-card volume analytics to spot institutional moves.</p>
+      </div>
+      <div class="bg-slate-900/50 p-6 rounded-xl border border-white/3">
+        <h3 class="text-lg font-semibold">Low-latency Alerts</h3>
+        <p class="mt-2 text-slate-300">Instant push and webhook notifications for critical events.</p>
+      </div>
+      <div class="bg-slate-900/50 p-6 rounded-xl border border-white/3">
+        <h3 class="text-lg font-semibold">Privacy-first</h3>
+        <p class="mt-2 text-slate-300">No third-party tracking, secure by design.</p>
+      </div>
+    </section>
+
+    <!-- pricing / CTA -->
+    <section id="pricing" class="mt-12 text-center">
+      <div class="bg-gradient-to-b from-slate-900/40 to-slate-900/20 p-8 rounded-xl border border-white/3 max-w-3xl mx-auto">
+        <h2 class="text-2xl font-bold">Plans for every trader</h2>
+        <p class="mt-2 text-slate-300">Try the premium experience — powerful features. Cancel anytime.</p>
+        <div class="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+          <div class="p-6 bg-slate-900/40 rounded-lg">
+            <div class="text-2xl font-bold">$19<span class="text-sm">/mo</span></div>
+            <div class="mt-2 text-slate-300">Starter — essential signals</div>
+            <a class="mt-4 inline-block px-4 py-2 bg-slate-700 rounded-md text-white">Choose</a>
+          </div>
+          <div class="p-6 bg-gradient-to-r from-indigo-600 to-purple-500 rounded-lg text-white">
+            <div class="text-2xl font-bold">$49<span class="text-sm">/mo</span></div>
+            <div class="mt-2">Pro — real-time analytics</div>
+            <a class="mt-4 inline-block px-4 py-2 bg-white/10 rounded-md">Choose</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- contact -->
+    <section id="contact" class="mt-12">
+      <div class="max-w-3xl mx-auto text-center text-slate-300">
+        <h3 class="text-lg font-semibold">Want a demo?</h3>
+        <p class="mt-2">Email <a href="mailto:hello@abrox.ai" class="text-indigo-300">hello@abrox.ai</a> and we’ll set up a walkthrough.</p>
+      </div>
+    </section>
+
+    <footer class="mt-16 pb-10 text-center text-slate-500 text-sm">
+      © <span id="year"></span> Abrox. All rights reserved.
+    </footer>
+  </main>
+
+  <script>
+    // footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle (simple)
+    const btn = document.getElementById('mobileMenuBtn');
+    btn?.addEventListener('click', () => {
+      alert('Mobile menu placeholder — implement navigation if needed.');
+    });
+  </script>
 </body>
 </html>

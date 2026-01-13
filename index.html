@@ -2,122 +2,328 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Abrox — Tailwind Landing (Fixed Palette)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Abrox — Promo Replica (Updated)</title>
+
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@0.276.0/dist/lucide.min.js"></script>
+
   <style>
-    /*
-      IMPORTANT: This version hardcodes a tested palette (magenta → violet → blue)
-      to avoid deployment failures related to cross-origin image sampling.
-      Use ./assets/abrox-source.png (relative path) and ensure the file name is exact (case-sensitive).
-    */
     :root{
-      --accent-1: #7b2cff; /* violet */
-      --accent-2: #ff2fb0; /* magenta */
-      --accent-3: #2a5bff; /* vivid blue */
-      --bg-1: #050306;
-      --bg-2: #0b0410;
-      --muted: rgba(255,255,255,0.68);
+      --bg-0:#071018; --bg-1:#041021;
+      --muted:#97A9BB;
+      --accent-from:#7A4BFF; --accent-to:#00C2FF;
+      --cta-from:#17b03f; --cta-to:#36d37a;
+      --cta-green:#22c55e;
+      --btn-blue-from:#3b82f6; --btn-blue-to:#60a5fa;
     }
+    html,body{height:100%;margin:0;background:
+      radial-gradient(800px 300px at 10% 8%, rgba(255,255,255,0.02), transparent 10%),
+      linear-gradient(180deg,var(--bg-0),var(--bg-1));font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#eaf5ff}
+    .glass{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.03);border-radius:14px;}
+    .hero-wrap{width:100%;max-width:960px;border-radius:14px;overflow:hidden;position:relative}
+    .hero-video{display:block;width:100%;height:auto;background:#000}
+    .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+    .play-circle{pointer-events:auto;width:140px;height:140px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,var(--accent-from),var(--accent-to));box-shadow:0 26px 60px rgba(0,0,0,0.6)}
+    .play-triangle{width:56px;height:56px;fill:white}
+    .mini-controls{position:absolute;left:14px;bottom:14px;display:flex;gap:12px;align-items:center}
+    .mini-square{width:64px;height:64px;border-radius:10px;background:linear-gradient(90deg,var(--cta-from),var(--cta-to));display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,0.45)}
+    .time-badge{background:rgba(0,0,0,0.45);padding:8px 12px;border-radius:8px;color:#fff;font-weight:700}
+    .right-controls{position:absolute;right:14px;bottom:14px;display:flex;gap:8px;align-items:center}
+    .icon-btn{width:40px;height:40px;border-radius:10px;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;color:#fff}
+    .online-pill{position:fixed;right:20px;top:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:center;border:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(6px);z-index:60}
+    .online-dot{width:12px;height:12px;border-radius:999px;background:#22c55e;box-shadow:0 0 0 6px rgba(34,197,94,0.08)}
+    .cta-block{border-radius:16px;padding:40px;background:linear-gradient(90deg,var(--cta-from),var(--cta-to));color:#032612;font-weight:800;text-align:center;font-size:26px;box-shadow:0 26px 60px rgba(2,6,23,0.6)}
+    .carousel { position: relative; overflow: hidden; width:100%; }
+    .carousel-track { display:flex; gap:16px; transition: transform 600ms cubic-bezier(.22,.9,.37,1); will-change: transform; padding:6px 2px; }
+    .card { min-width: 86%; max-width: 86%; background: rgba(255,255,255,0.02); border-radius:12px; padding:18px; border:1px solid rgba(255,255,255,0.03); box-shadow:0 12px 28px rgba(0,0,0,0.5); }
+    @media(min-width:640px){ .card { min-width: 46%; max-width: 46%; } }
+    @media(min-width:1024px){ .card { min-width: 30%; max-width: 30%; } }
+    .avatar { width:46px;height:46px;border-radius:999px;object-fit:cover;border:2px solid rgba(255,255,255,0.04) }
+    .dot{ width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,0.12) }
+    .dot.active{ background:linear-gradient(90deg,var(--accent-from),var(--accent-to)) }
+    .chart-card{height:220px;border-radius:12px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);}
 
-    .soft-card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius: 18px;
-      box-shadow: 12px 12px 28px rgba(3,6,12,0.7), -8px -8px 20px rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.02);
+    /* progress bar under video */
+    .video-progress-wrap{height:18px;width:100%;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border-radius:12px;margin-top:18px;overflow:hidden}
+    .video-progress-bar{height:100%;background:linear-gradient(90deg,var(--cta-from),var(--cta-to));width:0%;transition:width 300ms linear}
+
+    /* download/whatsapp buttons */
+    .btn-download{display:flex;gap:12px;align-items:center;justify-content:center;padding:16px 20px;border-radius:12px;background:linear-gradient(90deg,var(--btn-blue-from),var(--btn-blue-to));color:white;font-weight:700;box-shadow:0 12px 30px rgba(60,120,200,0.18)}
+    .btn-whatsapp{display:flex;gap:12px;align-items:center;justify-content:center;padding:12px 18px;border-radius:12px;background:linear-gradient(90deg,var(--cta-from),var(--cta-to));color:white;font-weight:700;box-shadow:0 12px 26px rgba(30,120,50,0.12)}
+
+    /* purchase toast (Sophie Martin) */
+    .toast{position:fixed;left:24px;bottom:28px;background:linear-gradient(90deg,var(--cta-from),var(--cta-to));color:white;padding:16px 18px;border-radius:12px;display:flex;align-items:center;gap:14px;box-shadow:0 18px 40px rgba(0,0,0,0.5);transform:translateY(120%);opacity:0;transition:all 450ms cubic-bezier(.2,.9,.3,1);z-index:70}
+    .toast.show{transform:translateY(0);opacity:1}
+
+    /* small responsive tweaks */
+    @media(min-width:1024px){
+      .play-circle{width:150px;height:150px}.play-triangle{width:66px;height:66px}.mini-square{width:64px;height:64px}
     }
-
-    .hero-bg{
-      background: radial-gradient(800px 300px at 10% 10%, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent),
-                  linear-gradient(180deg, var(--bg-1), var(--bg-2));
-    }
-
-    .accent-gradient{
-      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .logo-glow{
-      filter: drop-shadow(0 18px 40px rgba(123,44,255,0.25));
-    }
-
-    .logo-stage{border-radius:20px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));}
-
-    .cta-btn{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));}
-
-    .soft-border{border: 1px solid rgba(255,255,255,0.03)}
-
-    .brand-img{max-width:240px;height:auto}
   </style>
 </head>
-<body class="hero-bg min-h-screen flex items-center justify-center px-6 py-12 text-white">
-  <div class="max-w-6xl w-full">
-    <header class="flex items-center justify-between mb-8">
-      <div class="flex items-center gap-4">
-        <!-- Use exact relative path: ./assets/abrox-source.png -->
-        <img id="brandLogo" src="./assets/abrox-source.png" alt="Abrox" class="h-12 w-auto"/>
-        <div class="text-lg font-extrabold tracking-wide">Abrox</div>
-      </div>
-      <div class="soft-card px-4 py-2 text-sm text-gray-300 soft-border">LIVE • <span id="liveCount" class="font-bold text-white">16,553</span></div>
-    </header>
+<body class="antialiased">
 
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-      <div class="space-y-6">
-        <div class="text-sm uppercase text-gray-300 tracking-widest">Professional Trading Intelligence</div>
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Transform how you <span class="accent-gradient">trade</span> — fast, clean, confident</h1>
-        <p class="text-lg text-gray-300 max-w-xl">Abrox combines real-time market signals with a calm, focused UI. Built with traders in mind — neon accents, soft surfaces, and lightning-fast updates that keep you ahead of the market.</p>
+  <!-- header/logo -->
+  <header class="py-6">
+    <div class="max-w-6xl mx-auto flex items-center justify-center relative px-6">
+      <img src="assets/abrox-source.png" alt="Abrox" style="width:220px;max-width:46vw;height:auto;object-fit:contain" />
+    </div>
+  </header>
 
-        <div class="flex gap-4 items-center">
-          <button class="cta-btn text-gray-900 font-bold rounded-lg px-6 py-3 shadow-lg">Buy Now — $19 Lifetime</button>
-          <button class="bg-transparent border border-white/10 rounded-lg px-5 py-3">Request Demo</button>
+  <!-- online pill -->
+  <div class="online-pill" id="onlinePill" aria-live="polite" role="status">
+    <svg data-lucide="user" width="18" height="18"></svg>
+    <div id="onlineCount" style="font-weight:700;color:#eaf7ff">--</div>
+    <div class="online-dot" aria-hidden="true"></div>
+  </div>
+
+  <!-- main -->
+  <main class="max-w-6xl mx-auto px-6 pt-4 pb-24">
+    <!-- hero text -->
+    <section class="text-center mt-6">
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
+        Transform Your <br/> Way of
+        <div style="display:inline-block">
+          <span style="background:linear-gradient(90deg,var(--accent-from),var(--accent-to)); -webkit-background-clip:text; background-clip:text;color:transparent"> Trading in the Market</span>
         </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
-          <div class="soft-card p-4 soft-border">
-            <div class="text-sm font-semibold">Real-time Signals</div>
-            <div class="text-xs text-gray-300">High-frequency alerts with confidence.</div>
-          </div>
-          <div class="soft-card p-4 soft-border">
-            <div class="text-sm font-semibold">Mobile & Desktop</div>
-            <div class="text-xs text-gray-300">Consistent UI across devices.</div>
-          </div>
-          <div class="soft-card p-4 soft-border">
-            <div class="text-sm font-semibold">Secure</div>
-            <div class="text-xs text-gray-300">Encrypted accounts and safe payments.</div>
-          </div>
-        </div>
-      </div>
-
-      <aside class="flex items-center justify-center">
-        <div class="logo-stage w-full max-w-md shadow-2xl flex items-center justify-center">
-          <div class="relative flex items-center justify-center">
-            <div id="glow" class="absolute inset-0 rounded-lg" style="background: radial-gradient(300px 140px at 50% 35%, rgba(255,47,176,0.12), transparent);"></div>
-            <img id="heroLogo" src="./assets/abrox-source.png" alt="Abrox large" class="brand-img logo-glow z-10"/>
-          </div>
-        </div>
-      </aside>
+      </h1>
+      <p class="mt-5 text-slate-300 max-w-2xl mx-auto">Pro-grade signals, real-time volume analytics, and a focused trading workflow to help traders make confident decisions.</p>
     </section>
 
-    <footer class="mt-12 flex items-center justify-between text-sm text-gray-300">
-      <div>© Abrox • Crafted with care</div>
-      <div>Terms • Privacy</div>
+    <!-- hero video -->
+    <section class="mt-10 flex flex-col items-center">
+      <div class="hero-wrap glass p-4" role="region" aria-label="Product demo video">
+        <video id="heroVideo" class="hero-video rounded-md" poster="assets/hero-poster.jpg" preload="metadata" playsinline>
+          <source src="assets/hero.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+
+        <!-- big circular play -->
+        <div id="overlay" class="play-overlay">
+          <button id="bigPlay" class="play-circle" aria-label="Play demo" title="Play demo" style="pointer-events:auto">
+            <svg class="play-triangle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 2v20l18-10L4 2z"/></svg>
+          </button>
+        </div>
+
+        <!-- mini controls left -->
+        <div class="mini-controls">
+          <button id="miniPlay" class="mini-square" aria-label="Mini play" title="Play/Pause"><svg data-lucide="play" width="22" height="22"></svg></button>
+          <div class="flex items-center gap-3">
+            <svg data-lucide="volume2" width="22" height="22" class="text-white"></svg>
+            <div id="timeBadge" class="time-badge">00:00</div>
+          </div>
+        </div>
+
+        <!-- right small controls -->
+        <div class="right-controls">
+          <button class="icon-btn" id="settingsBtn" title="Settings"><svg data-lucide="settings" width="18" height="18"></svg></button>
+          <button class="icon-btn" id="fullBtn" title="Fullscreen"><svg data-lucide="maximize-2" width="18" height="18"></svg></button>
+        </div>
+      </div>
+
+      <!-- green progress bar directly under the video (like screenshot) -->
+      <div class="video-progress-wrap mt-6 max-w-[920px] w-full">
+        <div id="videoProgress" class="video-progress-bar" style="width: 28%;"></div>
+      </div>
+
+      <!-- CTA and action buttons -->
+      <div class="mt-8 w-full max-w-xl">
+        <div class="cta-block mb-6">BUY NOW - $19 LIFETIME</div>
+
+        <div class="flex flex-col gap-4 items-center">
+          <button class="btn-download w-64"><svg data-lucide="smartphone" width="18" height="18"></svg><span>Download App</span></button>
+          <button class="btn-whatsapp w-56"><svg data-lucide="message-square" width="18" height="18"></svg><span>WhatsApp Support</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- chart + testimonials -->
+    <section class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="chart-card">
+        <canvas id="miniChart" width="700" height="300" style="width:100%;height:100%;"></canvas>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold mb-4">What traders say</h3>
+        <div class="carousel" id="carousel">
+          <div class="carousel-track" id="track" aria-live="polite"></div>
+        </div>
+        <div class="carousel-nav" id="dots"></div>
+      </div>
+    </section>
+
+    <!-- pricing -->
+    <section id="pricing" class="mt-12">
+      <div class="max-w-4xl mx-auto glass p-8 text-center">
+        <h2 class="text-2xl font-bold">Plans for every trader</h2>
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="p-6 rounded-lg bg-gradient-to-r from-slate-900/30 to-slate-900/10 border border-white/4 text-center">
+            <div class="text-3xl font-extrabold">$19</div>
+            <div class="text-sm text-slate-300">Lifetime — Starter</div>
+            <a class="mt-4 inline-block px-4 py-2 bg-gradient-to-r from-accent-from to-accent-to text-white rounded-md">Choose</a>
+          </div>
+          <div class="p-6 rounded-lg bg-gradient-to-r from-indigo-900/20 to-purple-900/10 border border-white/4 text-center">
+            <div class="text-3xl font-extrabold">$49<span class="text-sm">/mo</span></div>
+            <div class="text-sm text-slate-300">Pro — Real-time analytics</div>
+            <a class="mt-4 inline-block px-4 py-2 border border-white/6 text-white rounded-md">Choose</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-12 text-center text-slate-400 text-sm">
+      © <span id="year"></span> Abrox. All rights reserved.
     </footer>
+  </main>
+
+  <!-- purchase toast (Sophie Martin) — appears bottom-left -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true">
+    <div style="width:54px;height:54px;border-radius:999px;background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;font-weight:800">✓</div>
+    <div>
+      <div style="font-weight:800">Sophie Martin</div>
+      <div style="color:rgba(255,255,255,0.9);margin-top:4px;font-size:13px">France — Just purchased!</div>
+    </div>
   </div>
 
   <script>
-    // Minimal script: no canvas sampling to avoid CORS issues on GitHub file preview.
-    // Quick helper to ensure images exist and log friendly errors to the console.
-    window.addEventListener('load', ()=>{
-      const imgs = document.querySelectorAll('img');
-      imgs.forEach(img=>{
-        img.addEventListener('error', ()=>{
-          console.error('Image failed to load:', img.src);
-        });
-      });
+    // lucide icons
+    lucide.replace();
+
+    // --- online pill simulation (replace with real feed) ---
+    const onlineEl = document.getElementById('onlineCount');
+    let baseOnline = 17132;
+    function simulateOnlineTick(){
+      const delta = Math.floor((Math.random() - 0.25) * 30);
+      baseOnline = Math.max(500, baseOnline + delta);
+      onlineEl.textContent = baseOnline.toLocaleString();
+    }
+    simulateOnlineTick();
+    setInterval(simulateOnlineTick, 5000 + Math.floor(Math.random()*7000));
+
+    // WebSocket example (replace URL):
+    // const ws = new WebSocket('wss://your-server/live');
+    // ws.onmessage = evt => { const data = JSON.parse(evt.data); if (data.online) onlineEl.textContent = Number(data.online).toLocaleString(); };
+
+    // --- video controls & progress bar ---
+    const hero = document.getElementById('heroVideo');
+    const overlay = document.getElementById('overlay');
+    const bigPlay = document.getElementById('bigPlay');
+    const miniPlay = document.getElementById('miniPlay');
+    const timeBadge = document.getElementById('timeBadge');
+    const fullBtn = document.getElementById('fullBtn');
+    const videoProgress = document.getElementById('videoProgress');
+
+    const formatTime = t => {
+      const mm = Math.floor(t/60).toString().padStart(2,'0');
+      const ss = Math.floor(t%60).toString().padStart(2,'0');
+      return `${mm}:${ss}`;
+    };
+
+    overlay.style.display = hero.paused ? 'flex' : 'none';
+    function togglePlay(){ if (hero.paused) hero.play().catch(()=>{}); else hero.pause(); }
+    bigPlay?.addEventListener('click', togglePlay);
+    miniPlay?.addEventListener('click', togglePlay);
+    hero.addEventListener('play', ()=> overlay.style.display='none');
+    hero.addEventListener('pause', ()=> overlay.style.display='flex');
+    hero.addEventListener('timeupdate', ()=> {
+      timeBadge.textContent = formatTime(hero.currentTime);
+      if (hero.duration) videoProgress.style.width = ((hero.currentTime / hero.duration) * 100) + '%';
     });
+    fullBtn?.addEventListener('click', ()=> {
+      const wrap = document.querySelector('.hero-wrap');
+      if (document.fullscreenElement) document.exitFullscreen(); else wrap.requestFullscreen().catch(()=>{});
+    });
+
+    // --- purchase toast (animate in/out) ---
+    const toast = document.getElementById('toast');
+    function showToast(name, country, message, delay=0){
+      // set text if different
+      toast.querySelector('div > div').textContent = name;
+      toast.querySelector('div > div + div').textContent = `${country} — ${message}`;
+      setTimeout(()=> toast.classList.add('show'), delay);
+      setTimeout(()=> toast.classList.remove('show'), delay + 4200);
+    }
+    // demo: show toast every ~20-40s cycling names
+    const demoNames = [['Sophie Martin','France','Just purchased!'], ['Lucas M','Brazil','Just purchased!'], ['Aisha B','UK','Just purchased!']];
+    let demoI=0;
+    setInterval(()=> { const [n,c,m]=demoNames[demoI%demoNames.length]; showToast(n,c,m,0); demoI++; }, 22000);
+    // show one on load
+    setTimeout(()=> showToast('Sophie Martin','France','Just purchased!',400), 900);
+
+    // --- demo chart (candles) ---
+    (function drawDemoChart(){
+      const canvas = document.getElementById('miniChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      function fit(){ canvas.width = canvas.clientWidth * devicePixelRatio; canvas.height = canvas.clientHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0); }
+      fit(); window.addEventListener('resize', fit);
+      const N=60; let price=200; const data=[];
+      for (let i=0;i<N;i++){ const open=price; const close=price + (Math.random()-0.45)*8; const high=Math.max(open,close)+Math.random()*6; const low=Math.min(open,close)-Math.random()*6; data.push({open,close,high,low}); price=close; }
+      function render(){ const w=canvas.clientWidth, h=canvas.clientHeight; ctx.clearRect(0,0,w,h); ctx.fillStyle='rgba(255,255,255,0.02)'; ctx.fillRect(0,0,w,h);
+        const margin=6, cw=(w-margin*2)/data.length; const values = data.flatMap(d=>[d.high,d.low]); const min=Math.min(...values), max=Math.max(...values);
+        function y(v){ return margin + (h-margin*2)*(1 - (v-min)/(max-min)); }
+        for (let i=0;i<data.length;i++){ const x=margin + i*cw + cw*0.2; const d=data[i]; const col = d.close>=d.open ? '#2bff9a' : '#ff6b6b'; ctx.fillStyle=col; ctx.strokeStyle=col; ctx.lineWidth=Math.max(1,cw*0.06);
+          ctx.beginPath(); ctx.moveTo(x+cw*0.35, y(d.high)); ctx.lineTo(x+cw*0.35, y(d.low)); ctx.stroke();
+          const bodyTop = y(Math.max(d.open,d.close)); const bodyH = Math.max(2, Math.abs(y(d.open)-y(d.close))); ctx.fillRect(x, bodyTop, cw*0.7, bodyH);
+        }
+      }
+      render();
+    })();
+
+    // === testimonials carousel (22 items) ===
+    const testimonials = [
+      'A game-changer — more confidence on every trade.',
+      'Signals are fast and clear; saved me time and money.',
+      'Real-time volume insight that actually moves the needle.',
+      'Low-latency alerts made my entries cleaner.',
+      'Great UX and support — highly recommended.',
+      'Affordable pricing for pro-grade tools.',
+      'Cleaner signals with fewer false positives.',
+      'Works great on multiple symbols and timeframes.',
+      'Excellent for both scalping and swing setups.',
+      'Integrates easily with my alert system.',
+      'Reliable and lightweight — runs great on mobile.',
+      'Impressive performance and updates.',
+      'Solid ROI within the first week.',
+      'Intuitive T-card volume that reveals hidden flows.',
+      'Perfect for discretionary and algorithmic traders.',
+      'Fast alerts and accurate event detection.',
+      'Great for teaching — my students love it.',
+      'Scales well for team workflows.',
+      'Accurate signals across assets.',
+      'Robust and easy to configure.',
+      'Very responsive support and documentation.',
+      'Keeps improving with new features.'
+    ];
+    const track = document.getElementById('track');
+    testimonials.forEach((t,i)=>{
+      const el = document.createElement('div'); el.className='card';
+      el.innerHTML = `<div class="flex items-start gap-3"><div class="avatar" style="background:linear-gradient(90deg,var(--accent-from),var(--accent-to));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;border-radius:999px">${i+1}</div><div style="flex:1"><div style="font-weight:700">Trader ${i+1} <span style="color:var(--muted);font-weight:600">• Verified</span></div><div style="color:var(--muted);margin-top:8px">${t}</div></div></div>`;
+      track.appendChild(el);
+    });
+
+    let slideIndex=0, slidesToShow=1;
+    const dotsEl = document.getElementById('dots');
+    function calcSlides(){ const w = window.innerWidth; slidesToShow = w>=1024 ? 3 : (w>=640 ? 2 : 1); }
+    calcSlides(); window.addEventListener('resize', ()=>{ calcSlides(); renderCarousel(); renderDots(); });
+    function renderDots(){ dotsEl.innerHTML=''; const pages = Math.ceil(testimonials.length/slidesToShow); for (let i=0;i<pages;i++){ const d = document.createElement('div'); d.className='dot'; d.onclick=(()=>{ slideIndex=i; renderCarousel(); }); dotsEl.appendChild(d); } }
+    renderDots();
+    function renderCarousel(){ const trackEl = document.getElementById('track'); const cardW = trackEl.children[0] ? trackEl.children[0].offsetWidth + 16 : 300; const shift = slideIndex * cardW; trackEl.style.transform = `translateX(-${shift}px)`; const dotNodes = dotsEl.children; for (let i=0;i<dotNodes.length;i++) dotNodes[i].classList.toggle('active', i===Math.floor(slideIndex)); }
+    let autoId=null;
+    function startAuto(){ autoId=setInterval(()=>{ slideIndex=(slideIndex+1)%Math.ceil(testimonials.length/slidesToShow); renderCarousel(); },3200); }
+    function stopAuto(){ clearInterval(autoId); autoId=null; }
+    const carousel = document.getElementById('carousel'); carousel.addEventListener('mouseenter', stopAuto); carousel.addEventListener('mouseleave', ()=>{ if(!autoId) startAuto(); });
+    renderCarousel(); startAuto();
+
+    // footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ensure lucide icons replaced after dynamic content load
+    window.addEventListener('load', ()=> lucide.replace());
   </script>
 </body>
 </html>

@@ -3,412 +3,411 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Abrox — Promo Replica (Neon + Live Pill)</title>
+  <title>Abrox — Testimonials & Landing</title>
+
+  <!-- Google Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+
   <!-- Lucide icons -->
   <script src="https://unpkg.com/lucide@0.276.0/dist/lucide.min.js"></script>
 
   <style>
     :root{
-      --bg-0:#071018; --bg-1:#041021;
-      --muted:#97A9BB;
-      --accent-from:#7A4BFF; --accent-to:#00C2FF;
-      --cta-from:#17b03f; --cta-to:#36d37a;
-      --cta-green:#22c55e;
-      --btn-blue-from:#3b82f6; --btn-blue-to:#60a5fa;
+      --bg-0:#050914;
+      --bg-1:#071525;
+      --text:#eaf5ff;
+      --muted:#98A8B8;
+      --accent-from:#7A4BFF;
+      --accent-to:#00D0FF;
+      --cta-from:#17b03f;
+      --cta-to:#36d37a;
+      --price-old:#9aa3b2;
+      --price-new:#061f0f;
     }
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#eaf5ff;background:var(--bg-0)}
-    /* Cosmic animated background: two subtle moving radial layers + tiny particles */
-    .cosmic {
-      position:fixed; inset:0; z-index:-2; pointer-events:none;
-      background: linear-gradient(180deg,var(--bg-0),var(--bg-1));
-      overflow:hidden;
-    }
-    .cosmic .layer {
-      position:absolute; inset:-25%; background-repeat:no-repeat; background-position:center;
-      opacity:.14; filter:blur(32px); transform-origin:center;
-      animation: floatSlow 22s linear infinite;
-    }
-    .cosmic .layer.l1 { background:
-      radial-gradient(600px 300px at 10% 20%, rgba(122,75,255,0.35), transparent 20%),
-      radial-gradient(400px 200px at 85% 80%, rgba(0,194,255,0.22), transparent 18%); animation-duration:26s; opacity:.12}
-    .cosmic .layer.l2 { background:
-      radial-gradient(500px 250px at 60% 10%, rgba(0,194,255,0.18), transparent 18%),
-      radial-gradient(350px 200px at 20% 80%, rgba(122,75,255,0.12), transparent 14%); animation-duration:34s; opacity:.08; filter:blur(48px)}
-    @keyframes floatSlow { 0%{ transform: translateY(0) scale(1) } 50%{ transform: translateY(12%) scale(1.03) } 100%{ transform: translateY(0) scale(1) } }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg-0),var(--bg-1));font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    /* cosmic layers */
+    .cosmic{position:fixed;inset:0;z-index:-3;pointer-events:none;overflow:hidden}
+    .layer{position:absolute;inset:-20%;background-repeat:no-repeat;background-position:center;opacity:.12;filter:blur(36px);transform-origin:center;animation:drift 34s linear infinite}
+    .l1{background:radial-gradient(500px 300px at 10% 18%, rgba(122,75,255,0.42), transparent 18%), radial-gradient(420px 250px at 85% 82%, rgba(0,208,255,0.18), transparent 18%);animation-duration:36s}
+    .l2{background:radial-gradient(380px 220px at 60% 6%, rgba(0,208,255,0.18), transparent 18%), radial-gradient(300px 180px at 24% 78%, rgba(122,75,255,0.12), transparent 14%);animation-duration:48s;opacity:.08}
+    @keyframes drift{0%{transform:translateY(0)}50%{transform:translateY(12%)}100%{transform:translateY(0)}}
+    canvas#stars{position:fixed;inset:0;z-index:-2;opacity:0.09;pointer-events:none}
 
-    /* very subtle star field particles via canvas will be drawn */
-    canvas#stars { position:fixed; inset:0; z-index:-1; opacity:0.12; pointer-events:none; }
+    /* glass cards */
+    .glass{ background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); border-radius:14px; backdrop-filter: blur(6px); }
 
-    /* Page glass styling */
-    .glass{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.03);border-radius:14px;}
+    /* logo glow */
+    .logo-wrap{display:block;width:max-content;margin:22px auto 6px;position:relative}
+    .logo-halo{position:absolute;inset:-12px;z-index:-1;border-radius:12px;pointer-events:none;background:radial-gradient(closest-side, rgba(122,75,255,0.16), transparent 30%), radial-gradient(closest-side, rgba(0,208,255,0.06), transparent 40%);filter:blur(24px);animation:haloPulse 3.8s ease-in-out infinite}
+    @keyframes haloPulse{0%{transform:scale(.98);opacity:.86}50%{transform:scale(1.03);opacity:1}100%{transform:scale(.98);opacity:.86}}
+    .logo{width:220px;max-width:46vw;height:auto;display:block;filter:drop-shadow(0 10px 28px rgba(122,75,255,0.24)) drop-shadow(0 18px 40px rgba(0,208,255,0.12));transition:transform .18s ease}
+    .logo:hover{transform:translateY(-2px) scale(1.01)}
 
-    /* Logo glow (premium neon) */
-    .logo-glow{
-      display:block;margin:28px auto 8px auto;width:220px;max-width:46vw;height:auto;object-fit:contain;
-      filter: drop-shadow(0 8px 20px rgba(110,59,255,0.24)) drop-shadow(0 12px 36px rgba(0,194,255,0.14));
-      transition:transform .25s ease;
-      position:relative;
-    }
-    /* animated halo behind logo */
-    .logo-wrap{position:relative;display:block; width:max-content; margin: 0 auto;}
-    .logo-halo{position:absolute; inset: -10px; z-index:-1; border-radius:14px;
-      background: radial-gradient(closest-side, rgba(110,59,255,0.12), transparent 30%),
-                  radial-gradient(closest-side, rgba(0,194,255,0.06), transparent 40%);
-      filter: blur(28px); pointer-events:none; animation:haloPulse 3.6s ease-in-out infinite;}
-    @keyframes haloPulse {
-      0% { transform: scale(0.98); opacity:0.86 }
-      50% { transform: scale(1.03); opacity:1 }
-      100% { transform: scale(0.98); opacity:0.86 }
-    }
-    .logo-glow:hover{ transform: translateY(-2px) scale(1.01); }
+    /* hero */
+    main{padding-left:20px;padding-right:20px;max-width:1080px;margin:0 auto;padding-bottom:60px}
+    .hero-h{text-align:center;margin-top:6px}
+    .hero-h h1{font-weight:800;line-height:1;font-size:2.25rem}
+    @media(min-width:900px){ .hero-h h1{font-size:3.5rem} }
 
-    /* Hero & video poster (video not auto-implemented) */
-    .hero-wrap{width:100%;max-width:960px;border-radius:14px;overflow:hidden;position:relative}
-    .poster{
-      display:block;width:100%;height:auto;background-size:cover;background-position:center;border-radius:10px;
-      box-shadow:0 18px 48px rgba(0,0,0,0.6);
-    }
-    .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-    .play-circle{pointer-events:auto;width:140px;height:140px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,var(--accent-from),var(--accent-to));box-shadow:0 26px 60px rgba(0,0,0,0.6);cursor:pointer}
-    .play-triangle{width:56px;height:56px;fill:white}
-    .mini-controls{position:absolute;left:14px;bottom:14px;display:flex;gap:12px;align-items:center}
-    .mini-square{width:64px;height:64px;border-radius:10px;background:linear-gradient(90deg,var(--cta-from),var(--cta-to));display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,0.45)}
-    .time-badge{background:rgba(0,0,0,0.45);padding:8px 12px;border-radius:8px;color:#fff;font-weight:700}
-    .right-controls{position:absolute;right:14px;bottom:14px;display:flex;gap:8px;align-items:center}
-    .icon-btn{width:40px;height:40px;border-radius:10px;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;color:#fff}
-    .video-progress-wrap{height:14px;width:100%;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border-radius:12px;margin-top:18px;overflow:hidden}
-    .video-progress-bar{height:100%;background:linear-gradient(90deg,var(--cta-from),var(--cta-to));width:0%;transition:width 300ms linear}
+    /* price cards */
+    .price-grid{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:12px }
+    .price-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px; padding:12px 16px; border:1px solid rgba(255,255,255,0.04); min-width:220px; text-align:center }
+    .price-old{ text-decoration:line-through;color:var(--price-old); font-weight:700; margin-right:10px }
+    .price-new{ background:linear-gradient(90deg,var(--cta-from),var(--cta-to)); color:var(--price-new); padding:6px 12px; border-radius:8px; font-weight:800; display:inline-block; margin-top:6px }
+
+    /* CTA & Telegram */
+    .cta-block{border-radius:16px;padding:18px;background:linear-gradient(90deg,var(--cta-from),var(--cta-to));color:#032612;font-weight:800;text-align:center;font-size:18px;box-shadow:0 24px 48px rgba(2,6,23,0.6);margin-top:18px}
+    .btn-telegram{display:inline-flex;gap:10px;align-items:center;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,#00a0d6,#0088cf);color:white;font-weight:700}
 
     /* online pill */
-    .online-pill{position:fixed;right:20px;top:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:center;border:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(6px);z-index:60}
-    .online-dot{width:12px;height:12px;border-radius:999px;background:#22c55e;box-shadow:0 0 0 6px rgba(34,197,94,0.08);animation:statusPulse 2.2s infinite;}
-    @keyframes statusPulse { 0%{ transform:scale(1) } 50%{ transform:scale(1.14) } 100%{ transform:scale(1) } }
+    .online-pill{position:fixed;right:18px;top:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:center;border:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(6px);z-index:60}
+    .online-dot{width:12px;height:12px;border-radius:999px;background:#22c55e;box-shadow:0 0 0 6px rgba(34,197,94,0.08);animation:statusPulse 2.2s infinite}
+    @keyframes statusPulse{0%{transform:scale(1)}50%{transform:scale(1.14)}100%{transform:scale(1)}}
 
-    /* toast purchase */
-    .toast{position:fixed;left:24px;bottom:28px;background:linear-gradient(90deg,var(--cta-from),var(--cta-to));color:white;padding:16px 18px;border-radius:12px;display:flex;align-items:center;gap:14px;box-shadow:0 18px 40px rgba(0,0,0,0.5);transform:translateY(120%);opacity:0;transition:all 450ms cubic-bezier(.2,.9,.3,1);z-index:70}
+    /* testimonials carousel */
+    .carousel{position:relative;overflow:hidden;width:100%}
+    .track{display:flex;gap:16px;transition:transform 650ms cubic-bezier(.22,.9,.37,1);will-change:transform;padding:6px 2px}
+    .card{min-width:86%;max-width:86%;background:rgba(255,255,255,0.02);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 28px rgba(0,0,0,0.45)}
+    @media(min-width:640px){ .card{min-width:46%;max-width:46%} }
+    @media(min-width:1024px){ .card{min-width:30%;max-width:30%} }
+    .avatar{width:56px;height:56px;border-radius:999px;object-fit:cover;border:2px solid rgba(255,255,255,0.04)}
+    .star{width:16px;height:16px;display:inline-block;margin-right:4px}
+    .dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
+    .dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,0.12)}
+    .dot.active{background:linear-gradient(90deg,var(--accent-from),var(--accent-to))}
+
+    /* purchase toast */
+    .toast{position:fixed;left:20px;bottom:18px;background:linear-gradient(90deg,var(--cta-from),var(--cta-to));color:white;padding:14px 16px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 18px 40px rgba(0,0,0,0.5);transform:translateY(120%);opacity:0;transition:all 420ms cubic-bezier(.2,.9,.3,1);z-index:80}
     .toast.show{transform:translateY(0);opacity:1}
 
-    /* CTA/Buttons */
-    .cta-block{border-radius:16px;padding:40px;background:linear-gradient(90deg,var(--cta-from),var(--cta-to));color:#032612;font-weight:800;text-align:center;font-size:26px;box-shadow:0 26px 60px rgba(2,6,23,0.6)}
-    .btn-download{display:flex;gap:12px;align-items:center;justify-content:center;padding:16px 20px;border-radius:12px;background:linear-gradient(90deg,var(--btn-blue-from),var(--btn-blue-to));color:white;font-weight:700;box-shadow:0 12px 30px rgba(60,120,200,0.18)}
-    .btn-whatsapp{display:flex;gap:12px;align-items:center;justify-content:center;padding:12px 18px;border-radius:12px;background:linear-gradient(90deg,var(--cta-from),var(--cta-to));color:white;font-weight:700;box-shadow:0 12px 26px rgba(30,120,50,0.12)}
-
-    /* layout */
-    .max-w-6xl{max-width:1080px;margin-left:auto;margin-right:auto}
-    main{padding-left:24px;padding-right:24px}
-
-    /* small responsive tweaks */
-    @media(min-width:1024px){
-      .play-circle{width:150px;height:150px}.play-triangle{width:66px;height:66px}.mini-square{width:64px;height:64px}
-      .logo-glow{width:300px}
-    }
+    footer{color:var(--muted);margin-top:28px;text-align:center;font-size:13px;padding-bottom:28px}
   </style>
 </head>
 <body>
 
-  <!-- cosmic background layers & star canvas -->
-  <div class="cosmic" aria-hidden="true">
-    <div class="layer l1"></div>
-    <div class="layer l2"></div>
-  </div>
-  <canvas id="stars"></canvas>
+  <!-- cosmic background + stars -->
+  <div class="cosmic" aria-hidden="true"><div class="layer l1"></div><div class="layer l2"></div></div>
+  <canvas id="stars" aria-hidden="true"></canvas>
 
   <!-- header/logo -->
-  <header class="py-6">
-    <div class="max-w-6xl mx-auto flex items-center justify-center relative px-6">
-      <div class="logo-wrap">
-        <div class="logo-halo" aria-hidden="true"></div>
-        <img src="assets/abrox-source.png" alt="Abrox" class="logo-glow" />
-      </div>
+  <header class="pt-6 pb-2">
+    <div class="logo-wrap">
+      <div class="logo-halo" aria-hidden="true"></div>
+      <img src="assets/abrox-source.png" alt="Abrox" class="logo" />
     </div>
   </header>
 
   <!-- online pill -->
   <div class="online-pill" id="onlinePill" aria-live="polite" role="status">
     <svg data-lucide="user" width="18" height="18"></svg>
-    <div id="onlineCount" style="font-weight:700;color:#eaf7ff">--</div>
+    <div id="onlineCount" style="font-weight:700">—</div>
     <div class="online-dot" aria-hidden="true"></div>
   </div>
 
-  <main class="max-w-6xl mx-auto px-6 pb-24">
-    <!-- hero text -->
-    <section class="text-center mt-6">
-      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
-        Transform Your <br/> Way of
-        <div style="display:inline-block">
-          <span style="background:linear-gradient(90deg,var(--accent-from),var(--accent-to)); -webkit-background-clip:text; background-clip:text;color:transparent"> Trading in the Market</span>
-        </div>
-      </h1>
-      <p class="mt-5 text-slate-300 max-w-2xl mx-auto">Pro-grade signals, real-time volume analytics, and a focused trading workflow to help traders make confident decisions.</p>
+  <main>
+    <!-- hero -->
+    <section class="hero-h text-center px-4">
+      <h1 class="font-extrabold leading-tight text-3xl md:text-5xl">Transform Your<br>Way of <span style="background:linear-gradient(90deg,var(--accent-from),var(--accent-to)); -webkit-background-clip:text; color:transparent; font-weight:800">Trading in the Market</span></h1>
+      <p class="mt-4 text-sm md:text-base text-gray-300 max-w-2xl mx-auto">Pro-grade signals, clear volume analytics and a focused trading workflow — fast, private, and premium.</p>
     </section>
 
-    <!-- hero poster (video not auto) -->
-    <section class="mt-10 flex flex-col items-center">
-      <div class="hero-wrap glass p-4" role="region" aria-label="Product demo (poster)">
-        <!-- poster as a background image; clicking play opens modal to play video -->
-        <div id="poster" class="poster" style="background-image:url('assets/hero-poster.jpg'); padding-bottom:56.25%; position:relative;">
-          <div class="play-overlay">
-            <button id="openPlayer" class="play-circle" title="Play demo">
-              <svg class="play-triangle" viewBox="0 0 24 24"><path d="M4 2v20l18-10L4 2z"></path></svg>
-            </button>
-          </div>
-
-          <!-- mini controls (non-functional; decorative like screenshot) -->
-          <div class="mini-controls" aria-hidden="true">
-            <div class="mini-square"><svg data-lucide="play" width="22" height="22"></svg></div>
-            <div class="flex items-center gap-3">
-              <svg data-lucide="volume2" width="22" height="22"></svg>
-              <div class="time-badge">00:36</div>
+    <!-- PRICE — two premium options -->
+    <section class="mt-6 text-center px-4">
+      <div class="max-w-xl mx-auto">
+        <div class="price-grid">
+          <div class="price-card">
+            <div style="font-size:13px;color:var(--muted)">Standard Lifetime</div>
+            <div style="margin-top:6px">
+              <span class="price-old">$599</span>
+              <div class="price-new">$299 <span style="font-size:11px;color:#06331e;margin-left:8px;font-weight:600">Lifetime</span></div>
             </div>
+            <div style="margin-top:10px;color:var(--muted);font-size:13px">All core signals + email support</div>
           </div>
 
-          <div class="right-controls" aria-hidden="true">
-            <div class="icon-btn"><svg data-lucide="settings" width="18" height="18"></svg></div>
-            <div class="icon-btn"><svg data-lucide="maximize-2" width="18" height="18"></svg></div>
+          <div class="price-card">
+            <div style="font-size:13px;color:var(--muted)"><strong>Pro Lifetime</strong></div>
+            <div style="margin-top:6px">
+              <span class="price-old">$899</span>
+              <div class="price-new">$499 <span style="font-size:11px;color:#06331e;margin-left:8px;font-weight:600">Lifetime</span></div>
+            </div>
+            <div style="margin-top:10px;color:var(--muted);font-size:13px">All features + priority Telegram support & future pro modules</div>
           </div>
         </div>
-      </div>
 
-      <!-- green progress bar -->
-      <div class="video-progress-wrap mt-6 max-w-[920px] w-full">
-        <div id="videoProgress" class="video-progress-bar" style="width: 26%;"></div>
-      </div>
-
-      <!-- CTA & actions -->
-      <div class="mt-8 w-full max-w-xl text-center">
-        <div class="cta-block mb-6">BUY NOW - $19 LIFETIME</div>
-
-        <div class="flex flex-col gap-4 items-center">
-          <button class="btn-download w-64"><svg data-lucide="smartphone" width="18" height="18"></svg><span>Download App</span></button>
-          <button class="btn-whatsapp w-56"><svg data-lucide="message-square" width="18" height="18"></svg><span>WhatsApp Support</span></button>
+        <div style="margin-top:14px">
+          <button id="telegramBtn" class="btn-telegram inline-flex items-center gap-3">
+            <img src="assets/telegram.png" alt="Telegram" style="width:20px;height:20px;display:inline-block"/>
+            <span>Telegram Support</span>
+          </button>
         </div>
+        <div style="margin-top:10px;color:var(--muted);font-size:13px">Limited-time pricing — original prices anchored above</div>
       </div>
     </section>
 
-    <!-- chart + testimonials (kept from previous) -->
-    <section class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="chart-card">
-        <canvas id="miniChart" width="700" height="300" style="width:100%;height:100%;"></canvas>
+    <!-- decorative progress -->
+    <div class="video-progress-wrap mt-6 max-w-[920px] w-full mx-auto"><div id="videoProgress" class="video-progress-bar" style="width:18%"></div></div>
+
+    <!-- chart + testimonials area -->
+    <section class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6 px-4">
+      <div class="chart-card glass p-3">
+        <canvas id="miniChart" width="700" height="300" style="width:100%;height:100%"></canvas>
       </div>
 
       <div>
         <h3 class="text-xl font-semibold mb-4">What traders say</h3>
-        <div class="carousel" id="carousel">
-          <div class="carousel-track" id="track" aria-live="polite"></div>
+
+        <div class="carousel">
+          <div id="track" class="track" aria-live="polite"></div>
         </div>
-        <div class="carousel-nav" id="dots"></div>
+
+        <div id="dots" class="dots" aria-hidden="false"></div>
       </div>
     </section>
 
-    <!-- pricing -->
-    <section id="pricing" class="mt-12">
-      <div class="max-w-4xl mx-auto glass p-8 text-center">
-        <h2 class="text-2xl font-bold">Plans for every trader</h2>
-        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="p-6 rounded-lg bg-gradient-to-r from-slate-900/30 to-slate-900/10 border border-white/4 text-center">
-            <div class="text-3xl font-extrabold">$19</div>
-            <div class="text-sm text-slate-300">Lifetime — Starter</div>
-            <a class="mt-4 inline-block px-4 py-2 bg-gradient-to-r from-accent-from to-accent-to text-white rounded-md">Choose</a>
-          </div>
-          <div class="p-6 rounded-lg bg-gradient-to-r from-indigo-900/20 to-purple-900/10 border border-white/4 text-center">
-            <div class="text-3xl font-extrabold">$49<span class="text-sm">/mo</span></div>
-            <div class="text-sm text-slate-300">Pro — Real-time analytics</div>
-            <a class="mt-4 inline-block px-4 py-2 border border-white/6 text-white rounded-md">Choose</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="mt-12 text-center text-slate-400 text-sm">
-      © <span id="year"></span> Abrox. All rights reserved.
-    </footer>
+    <footer><div class="mt-8"><span id="year"></span> © Abrox</div></footer>
   </main>
 
-  <!-- toast (purchase) -->
+  <!-- purchase toast -->
   <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true">
-    <div style="width:54px;height:54px;border-radius:999px;background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;font-weight:800">✓</div>
+    <div style="width:46px;height:46px;border-radius:999px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-weight:800">✓</div>
     <div>
-      <div style="font-weight:800">Sophie Martin</div>
-      <div style="color:rgba(255,255,255,0.9);margin-top:4px;font-size:13px">France — Just purchased!</div>
+      <div id="toastName" style="font-weight:800">Sophie Martin</div>
+      <div id="toastText" style="color:rgba(255,255,255,0.92);font-size:13px">France — Just purchased!</div>
     </div>
-  </div>
-
-  <!-- lightweight video lightbox (only opens when user clicks play) -->
-  <div id="lightbox" style="position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:120">
-    <div style="width:95%;max-width:1080px">
-      <video id="lightVideo" controls style="width:100%;height:auto;border-radius:10px;background:#000">
-        <source src="assets/hero.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
-      </video>
-    </div>
-    <button id="closeLight" style="position:fixed;right:18px;top:18px;background:rgba(255,255,255,0.06);color:white;border-radius:8px;padding:8px 10px;border:none">Close</button>
   </div>
 
   <script>
-    // lucide icons
-    lucide.replace();
+    // ---------- Helpers ----------
+    function rand(min, max){ return Math.random() * (max - min) + min }
+    function clamp(v, a, b){ return Math.max(a, Math.min(b, v)) }
 
-    // ---- star field canvas (small, subtle particles) ----
+    // Replace Lucide icons when ready
+    window.addEventListener('load', ()=> lucide.replace());
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ---------- starfield (lightweight) ----------
     (function starfield(){
-      const c = document.getElementById('stars');
-      if (!c) return;
-      const ctx = c.getContext('2d');
-      let W = innerWidth, H = innerHeight, DPR = devicePixelRatio || 1;
-      function resize(){ W = innerWidth; H = innerHeight; c.width = W * DPR; c.height = H * DPR; c.style.width = W + 'px'; c.style.height = H + 'px'; ctx.setTransform(DPR,0,0,DPR,0,0); }
-      const particles = [];
-      function initParticles(){
-        particles.length = 0;
-        const count = Math.round((W*H)/70000); // density small
-        for (let i=0;i<count;i++){
-          particles.push({
-            x: Math.random()*W, y: Math.random()*H,
-            r: Math.random()*1.2 + 0.3,
-            vx: (Math.random()-0.5)*0.06, vy:(Math.random()-0.5)*0.06,
-            alpha: 0.2 + Math.random()*0.6
-          });
+      try {
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+        let W = innerWidth, H = innerHeight, DPR = devicePixelRatio || 1;
+        function resize(){ W = innerWidth; H = innerHeight; canvas.width = W * DPR; canvas.height = H * DPR; canvas.style.width = W + 'px'; canvas.style.height = H + 'px'; ctx.setTransform(DPR,0,0,DPR,0,0); }
+        let particles = [];
+        function init(){
+          resize();
+          particles = [];
+          const target = Math.round(Math.min(180, (W*H)/70000 ));
+          for (let i=0;i<target;i++){
+            particles.push({ x:rand(0,W), y:rand(0,H), r:rand(0.3,1.2), vx:rand(-0.03,0.03), vy:rand(-0.03,0.03), a:rand(0.04,0.26) });
+          }
         }
-      }
-      function draw(){
-        ctx.clearRect(0,0,W,H);
-        for (const p of particles){
-          p.x += p.vx; p.y += p.vy;
-          if (p.x < -5) p.x = W+5; if (p.x > W+5) p.x = -5;
-          if (p.y < -5) p.y = H+5; if (p.y > H+5) p.y = -5;
-          ctx.beginPath();
-          ctx.fillStyle = `rgba(255,255,255,${p.alpha*0.08})`;
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-          ctx.fill();
+        function loop(){
+          ctx.clearRect(0,0,W,H);
+          for (const p of particles){
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < -10) p.x = W+10; if (p.x > W+10) p.x = -10;
+            if (p.y < -10) p.y = H+10; if (p.y > H+10) p.y = -10;
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(255,255,255,${p.a})`;
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+            ctx.fill();
+          }
+          requestAnimationFrame(loop);
         }
-        requestAnimationFrame(draw);
-      }
-      window.addEventListener('resize', ()=>{ resize(); initParticles(); });
-      resize(); initParticles(); draw();
+        window.addEventListener('resize', init);
+        init(); loop();
+      } catch(e){ console.warn('starfield failed', e) }
     })();
 
-    // ---- glowing logo pulse handled by CSS animation (no JS needed) ----
-
-    // ---- online pill realistic simulation (up & down, occasional jumps) ----
+    // ---------- online pill realistic simulation ----------
     (function onlineSim(){
       const el = document.getElementById('onlineCount');
-      let value = 16227; // starting value
+      let value = 16890;
       el.textContent = value.toLocaleString();
-
       function tick(){
-        // random walk with occasional burst/jump and occasional decrease
         const r = Math.random();
         let delta = 0;
-        if (r < 0.02) {
-          // rare big jump (new campaign)
-          delta = Math.round(Math.random()*250 + 50);
-        } else if (r < 0.05) {
-          // rare big drop (churn)
-          delta = -Math.round(Math.random()*80 + 20);
-        } else {
-          // small fluctuations (up or down)
-          delta = Math.round((Math.random()-0.48) * 18);
-        }
-        value = Math.max(80, value + delta);
-        // update display with grouping
+        if (r < 0.02) delta = Math.round(Math.random() * 220 + 40);
+        else if (r < 0.06) delta = -Math.round(Math.random() * 120 + 12);
+        else delta = Math.round((Math.random() - 0.48) * 18);
+        value = clamp(value + delta, 42, 9999999);
+        el.style.transition = 'transform 420ms cubic-bezier(.2,.9,.3,1)';
+        el.style.transform = 'translateY(-6px)';
+        setTimeout(()=> el.style.transform = 'translateY(0)', 420);
         el.textContent = value.toLocaleString();
       }
-
-      // random interval 3-9s to feel natural
-      setInterval(tick, 3000 + Math.floor(Math.random()*6000));
+      function schedule(){ setTimeout(()=>{ tick(); schedule(); }, 3000 + Math.floor(Math.random() * 6000)); }
+      schedule();
     })();
 
-    // ---- poster play opens lightbox (video not auto) ----
-    const openPlayer = document.getElementById('openPlayer');
-    const lightbox = document.getElementById('lightbox');
-    const lightVideo = document.getElementById('lightVideo');
-    const closeLight = document.getElementById('closeLight');
+    // ---------- purchase toast ----------
+    (function toastDemo(){
+      const box = document.getElementById('toast');
+      const nameEl = document.getElementById('toastName');
+      const textEl = document.getElementById('toastText');
+      const demos = [['Sophie Martin','France'],['Lucas M','Brazil'],['Aisha Khan','UK'],['Ibrahim','Nigeria'],['Elena','Spain']];
+      let i = 0;
+      function show(n, c){ nameEl.textContent = n; textEl.textContent = `${c} — Just purchased!`; box.classList.add('show'); setTimeout(()=> box.classList.remove('show'), 4200); }
+      setTimeout(()=> show(demos[0][0], demos[0][1]), 900);
+      setInterval(()=> { i = (i+1) % demos.length; show(demos[i][0], demos[i][1]); }, 22000);
+    })();
 
-    openPlayer?.addEventListener('click', ()=>{
-      lightbox.style.display = 'flex';
-      // play video if available (user initiated)
-      lightVideo.currentTime = 0;
-      lightVideo.play().catch(()=>{});
-    });
-    closeLight?.addEventListener('click', ()=> {
-      lightVideo.pause(); lightbox.style.display = 'none';
-    });
-    // close on ESC
-    document.addEventListener('keydown', (e)=>{ if (e.key==='Escape') { lightVideo.pause(); lightbox.style.display='none'; } });
-
-    // ---- demo chart (same small candlesticks) ----
-    (function drawDemoChart(){
-      const canvas = document.getElementById('miniChart');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      function fit(){ canvas.width = canvas.clientWidth * devicePixelRatio; canvas.height = canvas.clientHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0); }
-      fit(); window.addEventListener('resize', fit);
-      const N=60; let price=200; const data=[];
-      for (let i=0;i<N;i++){ const open=price; const close=price + (Math.random()-0.45)*8; const high=Math.max(open,close)+Math.random()*6; const low=Math.min(open,close)-Math.random()*6; data.push({open,close,high,low}); price=close; }
-      function render(){ const w=canvas.clientWidth, h=canvas.clientHeight; ctx.clearRect(0,0,w,h); ctx.fillStyle='rgba(255,255,255,0.02)'; ctx.fillRect(0,0,w,h);
-        const margin=6, cw=(w-margin*2)/data.length; const values = data.flatMap(d=>[d.high,d.low]); const min=Math.min(...values), max=Math.max(...values);
-        function y(v){ return margin + (h-margin*2)*(1 - (v-min)/(max-min)); }
-        for (let i=0;i<data.length;i++){ const x=margin + i*cw + cw*0.2; const d=data[i]; const col = d.close>=d.open ? '#2bff9a' : '#ff6b6b'; ctx.fillStyle=col; ctx.strokeStyle=col; ctx.lineWidth=Math.max(1,cw*0.06);
-          ctx.beginPath(); ctx.moveTo(x+cw*0.35, y(d.high)); ctx.lineTo(x+cw*0.35, y(d.low)); ctx.stroke();
-          const bodyTop = y(Math.max(d.open,d.close)); const bodyH = Math.max(2, Math.abs(y(d.open)-y(d.close))); ctx.fillRect(x, bodyTop, cw*0.7, bodyH);
+    // ---------- small demo candlestick chart ----------
+    (function demoChart(){
+      try {
+        const canvas = document.getElementById('miniChart'); if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const DPR = devicePixelRatio || 1;
+        function fit(){ canvas.width = canvas.clientWidth * DPR; canvas.height = canvas.clientHeight * DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
+        fit(); window.addEventListener('resize', fit);
+        const N = 60; let price = 420; const data = [];
+        for (let i=0;i<N;i++){ const open = price; const close = price + (Math.random()-0.45)*10; const high = Math.max(open,close)+Math.random()*8; const low = Math.min(open,close)-Math.random()*8; data.push({open,close,high,low}); price = close; }
+        function render(){
+          const w = canvas.clientWidth, h = canvas.clientHeight; ctx.clearRect(0,0,w,h); ctx.fillStyle='rgba(255,255,255,0.02)'; ctx.fillRect(0,0,w,h);
+          const margin = 6, cw = (w-margin*2)/data.length; const values = data.flatMap(d=>[d.high,d.low]); const min = Math.min(...values), max = Math.max(...values);
+          const y = v => margin + (h-margin*2)*(1 - (v-min)/(max-min));
+          for (let i=0;i<data.length;i++){
+            const x = margin + i*cw + cw*0.2; const d = data[i];
+            const col = d.close >= d.open ? '#2bff9a' : '#ff6b6b';
+            ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = Math.max(1, cw*0.06);
+            ctx.beginPath(); ctx.moveTo(x+cw*0.35, y(d.high)); ctx.lineTo(x+cw*0.35, y(d.low)); ctx.stroke();
+            const bodyTop = y(Math.max(d.open,d.close)); const bodyH = Math.max(2, Math.abs(y(d.open)-y(d.close)));
+            ctx.fillRect(x, bodyTop, cw*0.7, bodyH);
+          }
         }
-      }
-      render();
+        render();
+      } catch(e){ console.warn('chart error', e) }
     })();
 
-    // ---- testimonials carousel (keeps behavior) ----
-    (function testimon(){
-      const testimonials = [
-        'A game-changer — more confidence on every trade.',
-        'Signals are fast and clear; saved me time and money.',
-        'Real-time volume insight that actually moves the needle.',
-        'Low-latency alerts made my entries cleaner.',
-        'Great UX and support — highly recommended.',
-        'Affordable pricing for pro-grade tools.',
-        'Cleaner signals with fewer false positives.',
-        'Works great on multiple symbols and timeframes.',
-        'Excellent for both scalping and swing setups.',
-        'Integrates easily with my alert system.',
-        'Reliable and lightweight — runs great on mobile.',
-        'Impressive performance and updates.',
-        'Solid ROI within the first week.',
-        'Intuitive T-card volume that reveals hidden flows.',
-        'Perfect for discretionary and algorithmic traders.',
-        'Fast alerts and accurate event detection.',
-        'Great for teaching — my students love it.',
-        'Scales well for team workflows.',
-        'Accurate signals across assets.',
-        'Robust and easy to configure.',
-        'Very responsive support and documentation.',
-        'Keeps improving with new features.'
-      ];
+    // ---------- TESTIMONIALS data (22 items with flagcdn small icons) ----------
+    const TESTIMONIALS = [
+      { name:'Marco Rossi', cc:'it', avatar:'https://randomuser.me/api/portraits/men/32.jpg', title:'Pro Trader • Italy', text:'Been using Abrox 2 months — entries cleaner, less FOMO. Honestly surprised.'},
+      { name:'Aisha Khan', cc:'pk', avatar:'https://randomuser.me/api/portraits/women/65.jpg', title:'Swing Trader • Pakistan', text:'Signals are sharp. setup detection is fast. I\'ve cut my losing trades a lot.'},
+      { name:'David Johnson', cc:'us', avatar:'https://randomuser.me/api/portraits/men/45.jpg', title:'Day Trader • USA', text:'Fast alerts, low-latency. My morning routine is tighter now — big win.'},
+      { name:'Elena García', cc:'es', avatar:'https://randomuser.me/api/portraits/women/44.jpg', title:'Swing Trader • Spain', text:'Nice UX. The volume view helped me spot accumulation I missed before.'},
+      { name:'Lucas Moreira', cc:'br', avatar:'https://randomuser.me/api/portraits/men/21.jpg', title:'Scalper • Brazil', text:'Light on mobile, fast on cheap phones. Scalp results have improved.'},
+      { name:'Fatima Noor', cc:'sa', avatar:'https://randomuser.me/api/portraits/women/12.jpg', title:'Options Trader • Saudi Arabia', text:'Great for timing options entries — saves me from dumb entries.'},
+      { name:'Yuri Petrov', cc:'ru', avatar:'https://randomuser.me/api/portraits/men/77.jpg', title:'Algo Dev • Russia', text:'Integrated quickly into my alerts. Good hooks, clear docs.'},
+      { name:'Keiko Tanaka', cc:'jp', avatar:'https://randomuser.me/api/portraits/women/11.jpg', title:'Investor • Japan', text:'Useful for longer-term positions too. Not just scalp stuff.'},
+      { name:'Omar Abdel', cc:'eg', avatar:'https://randomuser.me/api/portraits/men/16.jpg', title:'Retail • Egypt', text:'Affordable & useful — felt professional from day 1.'},
+      { name:'Sarah Williams', cc:'gb', avatar:'https://randomuser.me/api/portraits/women/68.jpg', title:'Copy Trader • UK', text:'My followers trust it — conversion rose after adding Abrox alerts.'},
+      { name:'Pedro Alvarez', cc:'mx', avatar:'https://randomuser.me/api/portraits/men/55.jpg', title:'Fund Analyst • Mexico', text:'T-card volume gave me edge on flows. Solid product.'},
+      { name:'Nora Svensson', cc:'se', avatar:'https://randomuser.me/api/portraits/women/29.jpg', title:'Day Trader • Sweden', text:'Nice consistency. signals feel less noisy than others.'},
+      { name:'Ibrahim Musa', cc:'ng', avatar:'https://randomuser.me/api/portraits/men/81.jpg', title:'Trader • Nigeria', text:'Works even with slow net. solid performance and nice support.'},
+      { name:'Marta Nowak', cc:'pl', avatar:'https://randomuser.me/api/portraits/women/50.jpg', title:'Swing Trader • Poland', text:'I like the volume insight — it helped me avoid a bad trade last week.'},
+      { name:'Jean Dupont', cc:'fr', avatar:'https://randomuser.me/api/portraits/men/5.jpg', title:'Investor • France', text:'Good signal quality, low noise. Recommend if you want clarity.'},
+      { name:'Priya Sharma', cc:'in', avatar:'https://randomuser.me/api/portraits/women/21.jpg', title:'Retail • India', text:'Easy to use, reliable alerts. My results improved surprisingly quick.'},
+      { name:'Thomas Müller', cc:'de', avatar:'https://randomuser.me/api/portraits/men/91.jpg', title:'Quant • Germany', text:'Stable & low latency. Integrates well into algos.'},
+      { name:'Sofia Rossi', cc:'ar', avatar:'https://randomuser.me/api/portraits/women/14.jpg', title:'Swing Trader • Argentina', text:'Great docs and the signals are consistent. Clean UI.'},
+      { name:'Ahmed Khalid', cc:'ps', avatar:'https://randomuser.me/api/portraits/men/88.jpg', title:'Crypto Trader • Palestine', text:'Solid across coins. Support answered me fast, very helpful.'},
+      { name:'Lina Berg', cc:'no', avatar:'https://randomuser.me/api/portraits/women/35.jpg', title:'Instructor • Norway', text:'I show this in class — students get results fast.'},
+      { name:'Carlos Ruiz', cc:'co', avatar:'https://randomuser.me/api/portraits/men/13.jpg', title:'Pro Trader • Colombia', text:'Cleaner entries, fewer false signals. My P/L improved.'},
+      { name:'Hana Kim', cc:'kr', avatar:'https://randomuser.me/api/portraits/women/7.jpg', title:'Analyst • South Korea', text:'Great for quick decisions. I use it daily.'}
+    ];
+
+    // ---------- build testimonial cards & slider (with flagcdn) ----------
+    (function buildSlider(){
       const track = document.getElementById('track');
-      testimonials.forEach((t,i)=>{
-        const el = document.createElement('div'); el.className='card';
-        el.innerHTML = `<div class="flex items-start gap-3"><div class="avatar" style="background:linear-gradient(90deg,var(--accent-from),var(--accent-to));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;border-radius:999px">${i+1}</div><div style="flex:1"><div style="font-weight:700">Trader ${i+1} <span style="color:var(--muted);font-weight:600">• Verified</span></div><div style="color:var(--muted);margin-top:8px">${t}</div></div></div>`;
+      const dots = document.getElementById('dots');
+
+      // create cards
+      TESTIMONIALS.forEach((t, i) => {
+        const el = document.createElement('div');
+        el.className = 'card';
+        const cc = (t.cc || '').toLowerCase();
+        // flagcdn small icon (24x18) - reliable CDN
+        const flagUrl = `https://flagcdn.com/24x18/${cc}.png`;
+        el.innerHTML = `
+          <div class="flex items-start gap-4">
+            <img class="avatar" src="${t.avatar}" alt="${t.name}" loading="lazy"/>
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                <div style="font-weight:700">
+                  ${t.name}
+                  <span style="font-weight:600;color:var(--muted);margin-left:8px">
+                    <img src="${flagUrl}" alt="" style="width:20px;height:15px;vertical-align:middle;margin-right:6px;border-radius:2px" />
+                    ${t.title}
+                  </span>
+                </div>
+                <div style="display:flex;align-items:center;gap:2px">
+                  ${[1,2,3,4,5].map(()=>`<svg class="star" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill="#FFD166" d="M10 1.6l1.96 4 4.33.63-3.14 3.06.74 4.31L10 12.9l-3.89 2.66.74-4.31L3.7 6.23l4.33-.63L10 1.6z"/></svg>`).join('')}
+                </div>
+              </div>
+              <div style="color:var(--muted);margin-top:10px;font-size:14px">${t.text}</div>
+            </div>
+          </div>
+        `;
         track.appendChild(el);
       });
 
-      let slideIndex=0, slidesToShow=1;
-      const dotsEl = document.getElementById('dots');
-      function calcSlides(){ const w = window.innerWidth; slidesToShow = w>=1024 ? 3 : (w>=640 ? 2 : 1); }
-      calcSlides(); window.addEventListener('resize', ()=>{ calcSlides(); renderCarousel(); renderDots(); });
-      function renderDots(){ dotsEl.innerHTML=''; const pages = Math.ceil(testimonials.length/slidesToShow); for (let i=0;i<pages;i++){ const d = document.createElement('div'); d.className='dot'; d.onclick=(()=>{ slideIndex=i; renderCarousel(); }); dotsEl.appendChild(d); } }
+      // slider logic (robust: waits for images to load)
+      let idx = 0;
+      let slidesToShow = 1;
+      function calc(){ const w = window.innerWidth; slidesToShow = w >= 1024 ? 3 : (w >= 640 ? 2 : 1); }
+      calc();
+      window.addEventListener('resize', ()=> { calc(); renderDots(); render(); });
+
+      function renderDots(){
+        dots.innerHTML = '';
+        const pages = Math.ceil(TESTIMONIALS.length / slidesToShow);
+        for (let i=0;i<pages;i++){
+          const d = document.createElement('div');
+          d.className = 'dot';
+          d.onclick = ()=> { idx = i; render(); };
+          dots.appendChild(d);
+        }
+      }
+
+      function render(){
+        const children = track.children;
+        if (!children.length) return;
+        // guard: if width is zero, try again a bit later
+        const cwRaw = children[0].offsetWidth;
+        if (!cwRaw || isNaN(cwRaw)) {
+          setTimeout(render, 120);
+          return;
+        }
+        const cardW = cwRaw + 16;
+        const shift = idx * cardW;
+        track.style.transform = `translateX(-${shift}px)`;
+        Array.from(dots.children).forEach((el, i) => el.classList.toggle('active', i === Math.floor(idx)));
+      }
+
+      function auto(){
+        idx = (idx + 1) % Math.ceil(TESTIMONIALS.length / slidesToShow);
+        render();
+      }
+
       renderDots();
-      function renderCarousel(){ const trackEl = document.getElementById('track'); const cardW = trackEl.children[0] ? trackEl.children[0].offsetWidth + 16 : 300; const shift = slideIndex * cardW; trackEl.style.transform = `translateX(-${shift}px)`; const dotNodes = dotsEl.children; for (let i=0;i<dotNodes.length;i++) dotNodes[i].classList.toggle('active', i===Math.floor(slideIndex)); }
-      let autoId=null;
-      function startAuto(){ autoId=setInterval(()=>{ slideIndex=(slideIndex+1)%Math.ceil(testimonials.length/slidesToShow); renderCarousel(); },3200); }
-      function stopAuto(){ clearInterval(autoId); autoId=null; }
-      const carousel = document.getElementById('carousel'); carousel.addEventListener('mouseenter', stopAuto); carousel.addEventListener('mouseleave', ()=>{ if(!autoId) startAuto(); });
-      renderCarousel(); startAuto();
+      // wait for images to finish loading so measurements are correct
+      const imgs = track.querySelectorAll('img');
+      if (imgs.length === 0) {
+        render();
+        var id = setInterval(auto, 3200);
+      } else {
+        let loaded = 0;
+        imgs.forEach(img => {
+          if (img.complete) { loaded++; }
+          else img.addEventListener('load', ()=> { loaded++; if (loaded === imgs.length) { render(); id = setInterval(auto, 3200); }});
+        });
+        // fallback start after 1 second in case some images stall
+        setTimeout(()=>{ if (typeof id === 'undefined') { render(); id = setInterval(auto, 3200); } }, 1000);
+      }
+
+      const carousel = document.querySelector('.carousel');
+      carousel?.addEventListener('mouseenter', ()=> clearInterval(id));
+      carousel?.addEventListener('mouseleave', ()=> id = setInterval(auto, 3200));
+      // ensure an initial render after load
+      window.addEventListener('load', ()=> setTimeout(()=> render(), 260));
     })();
 
-    // footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // ensure lucide icons replaced after dynamic content load
-    window.addEventListener('load', ()=> lucide.replace());
+    // ---------- small guard ----------
+    window.addEventListener('error', (e)=> console.warn('Page error (non-fatal):', e.message));
   </script>
 </body>
 </html>

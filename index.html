@@ -2,411 +2,173 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Abrox — Promo Replica (Updated)</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abrox — Tailwind Landing</title>
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Lucide icons -->
-  <script src="https://unpkg.com/lucide@0.276.0/dist/lucide.min.js"></script>
-
   <style>
-    /* Brand color: set this to your exact Abrox logo hex */
     :root{
-      --abrox: #06b6d4;              /* <-- REPLACE with your exact Abrox color */
-      --bg-0:#071018; --bg-1:#041021;
-      --card-bg: rgba(255,255,255,0.02);
-      --muted: #97A9BB;
+      --accent-1: #7b2cff; /* will be replaced by JS */
+      --accent-2: #ff2fa6; /* will be replaced by JS */
+      --accent-3: #2a5bff;
+      --bg-1: #050306;
+      --bg-2: #0b0410;
+      --muted: rgba(255,255,255,0.6);
     }
 
-    html,body{
-      height:100%;
-      margin:0;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
-      background:
-        radial-gradient(800px 300px at 10% 8%, rgba(255,255,255,0.02), transparent 10%),
-        linear-gradient(180deg,var(--bg-0),var(--bg-1));
-      color: #eaf5ff;
-      -webkit-font-smoothing:antialiased;
-    }
-
-    /* App-like container (centered, compact feel) */
-    .app-shell{
-      max-width:980px;
-      margin:0 auto;
-      padding:20px;
-    }
-
-    .glass{
-      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
-      backdrop-filter: blur(6px);
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,0.03);
-    }
-
-    /* online pill (app-like) */
-    .online-pill{
-      position:fixed;
-      right:16px;
-      top:18px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      padding:8px 12px;
-      border-radius:12px;
+    /* soft / neumorphic card using CSS variables for color harmony */
+    .soft-card{
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.04);
-      z-index:80;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+      border-radius: 18px;
+      box-shadow: 12px 12px 28px rgba(3,6,12,0.7), -8px -8px 20px rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.02);
     }
-    .online-dot{
-      width:10px;height:10px;border-radius:999px;background:#22c55e;
-      box-shadow:0 0 0 6px rgba(34,197,94,0.06);
-      position:relative;
+
+    .hero-bg{
+      background: radial-gradient(800px 300px at 10% 10%, color-mix(in srgb, var(--accent-2) 18%, transparent), transparent),
+                  linear-gradient(180deg, var(--bg-1), var(--bg-2));
     }
-    .online-dot::after{
-      content:"";
-      position:absolute; inset:-8px; border-radius:999px;
-      animation: pulse 2s infinite;
+
+    .accent-gradient{
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
-    @keyframes pulse{ 0%{opacity:0.12; transform:scale(0.9)} 50%{opacity:0.06; transform:scale(1.15)} 100%{opacity:0.12; transform:scale(0.9)} }
 
-    /* make the main hero play button compact & app-like */
-    .play-circle {
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.06), transparent 20%), var(--abrox);
-      width:92px; height:92px; border-radius:999px; display:flex; align-items:center; justify-content:center;
-      box-shadow:0 20px 40px rgba(0,0,0,0.5);
+    /* large subtle glow behind the centered logo */
+    .logo-glow{
+      filter: drop-shadow(0 18px 40px rgba(123,44,255,0.25));
     }
-    .play-triangle{ width:36px; height:36px; fill: white; }
 
-    /* video progress small bar */
-    .video-progress-wrap{height:12px;width:100%;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:10px;overflow:hidden}
-    .video-progress-bar{height:100%;background:var(--abrox);width:0%;transition:width 300ms linear}
+    /* responsive mock hero image container to keep the logo balanced */
+    .logo-stage{border-radius:20px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));}
 
-    /* broker tiles */
-    .broker-tile {
-      background: var(--card-bg);
-      border-radius:12px;
-      padding:12px;
-      display:flex;
-      gap:12px;
-      align-items:center;
-      border:1px solid rgba(255,255,255,0.03);
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-    .broker-tile:hover{ transform: translateY(-6px); box-shadow:0 16px 30px rgba(0,0,0,0.45); }
+    /* CTA gradient using CSS variables */
+    .cta-btn{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));}
 
-    /* placeholder avatar inside carousel cards */
-    .avatar-fake { width:44px;height:44px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-weight:700; background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.03)); color:var(--abrox); }
+    /* small utility to use CSS variable for border color on soft UI elements */
+    .soft-border{border: 1px solid rgba(255,255,255,0.03)}
 
-    /* compact toast */
-    .toast{ position: fixed; left:18px; bottom:20px; background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); color: white; padding:12px; border-radius:12px; display:flex; gap:12px; align-items:center; border:1px solid rgba(255,255,255,0.03); transform:translateY(120%); opacity:0; transition:all 420ms cubic-bezier(.2,.9,.3,1); z-index:75}
-    .toast.show{ transform:translateY(0); opacity:1; }
+    /* make sure the logo image never overflows */
+    .brand-img{max-width:240px;height:auto}
 
-    /* small helper for broker icons - sized with Tailwind too but fallback here */
-    .broker-icon{ width:48px; height:48px; object-fit:contain; border-radius:8px; background:transparent; }
-
-    /* responsive tweaks */
-    @media (min-width:1024px){
-      .play-circle { width:120px; height:120px; }
-      .play-triangle{ width:48px;height:48px; }
-      .broker-icon{ width:56px;height:56px; }
-    }
   </style>
 </head>
-<body class="antialiased">
-
-  <!-- online pill -->
-  <div class="online-pill" id="onlinePill" role="status" aria-live="polite" aria-atomic="true">
-    <!-- prefer an SVG file in assets/icons/user.svg — we leave this src so you can drop your file in assets/icons -->
-    <img src="assets/icons/user.svg" alt="online users" class="w-5 h-5 object-contain" onerror="this.style.display='none'"/>
-    <!-- fallback lucide icon if the file isn't present -->
-    <svg data-lucide="users" width="18" height="18" class="text-white" aria-hidden="true"></svg>
-
-    <div id="onlineCount" class="font-semibold text-sm" style="min-width:64px">--</div>
-
-    <div class="online-dot" aria-hidden="true"></div>
-  </div>
-
-  <main class="app-shell">
-    <!-- Header with Abrox logo (small, app-like) -->
-    <header class="flex items-center justify-center py-4">
-      <img src="assets/abrox-source.png" alt="Abrox" style="height:46px; object-fit:contain;" />
+<body class="hero-bg min-h-screen flex items-center justify-center px-6 py-12 text-white">
+  <div class="max-w-6xl w-full">
+    <!-- Header -->
+    <header class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-4">
+        <img id="brandLogo" src="assets/abrox-source.png" alt="Abrox" class="h-12 w-auto"/>
+        <div class="text-lg font-extrabold tracking-wide">Abrox</div>
+      </div>
+      <div class="soft-card px-4 py-2 text-sm text-gray-300 soft-border">LIVE • <span id="liveCount" class="font-bold text-white">16,553</span></div>
     </header>
 
     <!-- HERO -->
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-      <!-- left: headline & CTA (compact) -->
-      <div class="space-y-4">
-        <h1 class="text-3xl md:text-4xl font-extrabold leading-tight">
-          Transform Your <br/>
-          <span class="block text-transparent bg-clip-text" style="background: linear-gradient(90deg,var(--abrox), rgba(0,0,0,0.14))">Trading in the Market</span>
-        </h1>
-        <p class="text-sm text-[--muted] max-w-lg">Pro-grade signals, real-time volume analytics and a focused trading workflow — packaged for fast mobile use.</p>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <!-- left column: text -->
+      <div class="space-y-6">
+        <div class="text-sm uppercase text-gray-300 tracking-widest">Professional Trading Intelligence</div>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Transform how you <span class="accent-gradient">trade</span> — fast, clean, confident</h1>
+        <p class="text-lg text-gray-300 max-w-xl">Abrox combines real-time market signals with a calm, focused UI. Built with traders in mind — neon accents, soft surfaces, and lightning-fast updates that keep you ahead of the market.</p>
 
-        <div class="mt-4 flex flex-wrap gap-3">
-          <button class="px-4 py-3 rounded-lg font-bold bg-[var(--abrox)] text-black shadow-md">BUY NOW • $19 LIFETIME</button>
-          <button class="px-4 py-3 rounded-lg font-semibold bg-white/6 text-white">How it works</button>
+        <div class="flex gap-4 items-center">
+          <button class="cta-btn text-gray-900 font-bold rounded-lg px-6 py-3 shadow-lg">Buy Now — $19 Lifetime</button>
+          <button class="bg-transparent border border-white/10 rounded-lg px-5 py-3">Request Demo</button>
         </div>
 
-        <div class="mt-4 flex gap-3">
-          <button class="flex items-center gap-2 px-4 py-3 rounded-lg bg-gradient-to-r from-sky-600 to-sky-400 text-white font-semibold shadow"> 
-            <svg data-lucide="smartphone" width="18" height="18"></svg> <span>Download App</span>
-          </button>
-          <button class="flex items-center gap-2 px-4 py-3 rounded-lg bg-gradient-to-r from-[var(--abrox)]/90 to-[var(--abrox)]/60 text-white font-semibold shadow">
-            <svg data-lucide="message-circle" width="18" height="18"></svg> <span>WhatsApp Support</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- right: hero video card (app-like compact card) -->
-      <div class="glass p-3 rounded-xl">
-        <div class="relative rounded-md overflow-hidden">
-          <video id="heroVideo" poster="assets/hero-poster.jpg" class="w-full rounded-md" playsinline preload="metadata">
-            <source src="assets/hero.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-
-          <!-- big play -->
-          <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <button id="bigPlay" class="play-circle pointer-events-auto" aria-label="Play demo">
-              <svg class="play-triangle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 2v20l18-10L4 2z"/></svg>
-            </button>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
+          <div class="soft-card p-4 soft-border">
+            <div class="text-sm font-semibold">Real-time Signals</div>
+            <div class="text-xs text-gray-300">High-frequency alerts with confidence.</div>
           </div>
-
-          <!-- mini controls bottom-left -->
-          <div class="absolute left-3 bottom-3 flex items-center gap-3">
-            <button id="miniPlay" class="bg-[rgba(0,0,0,0.45)] p-2 rounded-md pointer-events-auto" aria-label="Play/Pause">
-              <svg data-lucide="play" width="18" height="18"></svg>
-            </button>
-            <div id="timeBadge" class="text-xs bg-[rgba(0,0,0,0.45)] px-2 py-1 rounded-md font-semibold">00:00</div>
+          <div class="soft-card p-4 soft-border">
+            <div class="text-sm font-semibold">Mobile & Desktop</div>
+            <div class="text-xs text-gray-300">Consistent UI across devices.</div>
+          </div>
+          <div class="soft-card p-4 soft-border">
+            <div class="text-sm font-semibold">Secure</div>
+            <div class="text-xs text-gray-300">Encrypted accounts and safe payments.</div>
           </div>
         </div>
-
-        <!-- progress bar -->
-        <div class="video-progress-wrap mt-3">
-          <div id="videoProgress" class="video-progress-bar" style="width:28%"></div>
-        </div>
       </div>
+
+      <!-- right column: large logo stage (balanced) -->
+      <aside class="flex items-center justify-center">
+        <div class="logo-stage w-full max-w-md shadow-2xl flex items-center justify-center">
+          <!-- big centered logo with glow and subtle vignette to balance the composition -->
+          <div class="relative flex items-center justify-center">
+            <div id="glow" class="absolute inset-0 rounded-lg" style="background: radial-gradient(300px 140px at 50% 35%, rgba(255,0,150,0.12), transparent);"></div>
+            <img id="heroLogo" src="assets/abrox-source.png" alt="Abrox large" class="brand-img logo-glow z-10"/>
+          </div>
+        </div>
+      </aside>
     </section>
 
-    <!-- Pricing card -->
-    <section class="mt-6">
-      <div class="glass p-4 rounded-xl flex items-center justify-between gap-4">
-        <div>
-          <div class="text-sm text-[--muted]">Regular Price</div>
-          <div class="text-2xl font-extrabold line-through opacity-60">$97 / year</div>
-        </div>
-        <div class="text-right">
-          <div class="text-xs font-bold text-[var(--abrox)]">BLACK FRIDAY SPECIAL</div>
-          <div class="text-3xl font-extrabold">$19 <span class="text-sm font-semibold block">LIFETIME</span></div>
-        </div>
-        <div>
-          <button class="px-4 py-3 rounded-lg bg-[var(--abrox)] text-black font-bold shadow">BUY NOW</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- chart + testimonials -->
-    <section class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="glass p-3 rounded-xl">
-        <canvas id="miniChart" width="700" height="300" style="width:100%;height:220px;"></canvas>
-      </div>
-
-      <div class="glass p-3 rounded-xl">
-        <h3 class="font-semibold mb-3">What traders say</h3>
-        <div id="track" class="flex gap-3 overflow-x-auto py-2"></div>
-      </div>
-    </section>
-
-    <!-- Compatible Brokers grid (icons are placeholders you will add to assets/brokers/) -->
-    <section class="mt-6 glass p-4 rounded-xl">
-      <h2 class="text-lg font-bold mb-3 text-center">Compatible Brokers</h2>
-
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-        <!-- Each tile uses an icon placeholder; put real icons in assets/brokers/<slug>.svg -->
-        <div class="broker-tile">
-          <img class="broker-icon w-12 h-12 md:w-14 md:h-14" src="assets/brokers/iq-option.svg" alt="IQ Option" onerror="this.src='assets/brokers/placeholder.svg'"/>
-          <div class="font-bold">IQ OPTION</div>
-        </div>
-
-        <div class="broker-tile">
-          <img class="broker-icon w-12 h-12 md:w-14 md:h-14" src="assets/brokers/quotex.svg" alt="Quotex" onerror="this.src='assets/brokers/placeholder.svg'"/>
-          <div class="font-bold">QUOTEX</div>
-        </div>
-
-        <div class="broker-tile">
-          <img class="broker-icon w-12 h-12 md:w-14 md:h-14" src="assets/brokers/pocket-option.svg" alt="Pocket Option" onerror="this.src='assets/brokers/placeholder.svg'"/>
-          <div class="font-bold">POCKET OPTION</div>
-        </div>
-
-        <div class="broker-tile">
-          <img class="broker-icon w-12 h-12 md:w-14 md:h-14" src="assets/brokers/polarium.svg" alt="Polarium Broker" onerror="this.src='assets/brokers/placeholder.svg'"/>
-          <div class="font-bold">POLARIUM BROKER</div>
-        </div>
-
-        <div class="broker-tile">
-          <img class="broker-icon w-12 h-12 md:w-14 md:h-14" src="assets/brokers/expert-option.svg" alt="Expert Option" onerror="this.src='assets/brokers/placeholder.svg'"/>
-          <div class="font-bold">EXPERT OPTION</div>
-        </div>
-
-        <div class="broker-tile">
-          <img class="broker-icon w-12 h-12 md:w-14 md:h-14" src="assets/brokers/binomo.svg" alt="Binomo" onerror="this.src='assets/brokers/placeholder.svg'"/>
-          <div class="font-bold">BINOMO</div>
-        </div>
-
-        <div class="broker-tile">
-          <img class="broker-icon w-12 h-12 md:w-14 md:h-14" src="assets/brokers/olymp-trade.svg" alt="Olymp Trade" onerror="this.src='assets/brokers/placeholder.svg'"/>
-          <div class="font-bold">OLYMP TRADE</div>
-        </div>
-
-        <div class="broker-tile">
-          <img class="broker-icon w-12 h-12 md:w-14 md:h-14" src="assets/brokers/home-broker.svg" alt="Home Broker" onerror="this.src='assets/brokers/placeholder.svg'"/>
-          <div class="font-bold">HOME BROKER</div>
-        </div>
-
-        <div class="broker-tile">
-          <img class="broker-icon w-12 h-12 md:w-14 md:h-14" src="assets/brokers/exnova.svg" alt="Exnova" onerror="this.src='assets/brokers/placeholder.svg'"/>
-          <div class="font-bold">EXNOVA</div>
-        </div>
-
-        <div class="broker-tile">
-          <img class="broker-icon w-12 h-12 md:w-14 md:h-14" src="assets/brokers/avalon.svg" alt="Avalon" onerror="this.src='assets/brokers/placeholder.svg'"/>
-          <div class="font-bold">AVALON</div>
-        </div>
-
-        <div class="broker-tile">
-          <img class="broker-icon w-12 h-12 md:w-14 md:h-14" src="assets/brokers/bullex.svg" alt="Bullex" onerror="this.src='assets/brokers/placeholder.svg'"/>
-          <div class="font-bold">BULLEX</div>
-        </div>
-
-        <div class="broker-tile">
-          <img class="broker-icon w-12 h-12 md:w-14 md:h-14" src="assets/brokers/ebinex.svg" alt="Ebinex" onerror="this.src='assets/brokers/placeholder.svg'"/>
-          <div class="font-bold">EBINEX</div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="mt-8 text-center text-sm text-[--muted] pb-8">
-      © <span id="year"></span> Abrox. All rights reserved.
+    <!-- FOOTER small -->
+    <footer class="mt-12 flex items-center justify-between text-sm text-gray-300">
+      <div>© Abrox • Crafted with care</div>
+      <div>Terms • Privacy</div>
     </footer>
-  </main>
-
-  <!-- toast (purchase notice) -->
-  <div id="purchaseToast" class="toast" role="status" aria-live="polite" aria-atomic="true">
-    <div class="w-10 h-10 rounded-full flex items-center justify-center bg-white/6 text-[var(--abrox)] font-bold">✓</div>
-    <div class="text-left">
-      <div id="toastName" class="font-semibold text-sm">Anna Kowalski</div>
-      <div id="toastMsg" class="text-xs text-[--muted]">Poland — Just purchased!</div>
-    </div>
   </div>
 
   <script>
-    // lucide icons replacement
-    lucide.replace();
+    // Palette extraction from the provided logo (assets/abrox-source.png)
+    ;(function(){
+      const logo = document.getElementById('brandLogo');
+      // fallback palette tuned to the logo you uploaded (vibrant magenta -> violet -> blue)
+      const fallback = {accent1:'#9b2cff', accent2:'#ff2fb0', accent3:'#2a5bff', bg1:'#050306', bg2:'#0b0410', muted:'#bfc6ff'};
 
-    // Simulated "online" pill behaviour: more realistic jitter and occasional jumps
-    const onlineEl = document.getElementById('onlineCount');
-    let base = 16227; // similar to screenshot start
-    const minVal = 400;
-    function tickOnline(){
-      // allow small jitter most of the time and occasional larger jumps
-      const r = Math.random();
-      let delta = Math.floor((Math.random() - 0.5) * 22);
-      if (r > 0.96) delta = Math.floor((Math.random() - 0.5) * 240); // occasional spike/drop
-      base = Math.max(minVal, base + delta);
-      onlineEl.textContent = base.toLocaleString();
-    }
-    tickOnline();
-    setInterval(tickOnline, 4500 + Math.floor(Math.random()*6000));
+      function rgbToHex(r,g,b){ return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join(''); }
 
-    // Video controls & progress
-    const hero = document.getElementById('heroVideo');
-    const overlayBtn = document.getElementById('bigPlay');
-    const miniPlay = document.getElementById('miniPlay');
-    const timeBadge = document.getElementById('timeBadge');
-    const progress = document.getElementById('videoProgress');
-
-    const format = t => {
-      const mm = Math.floor(t/60).toString().padStart(2,'0');
-      const ss = Math.floor(t%60).toString().padStart(2,'0');
-      return `${mm}:${ss}`;
-    };
-
-    function togglePlay(){ if (hero.paused) hero.play().catch(()=>{}); else hero.pause(); }
-    overlayBtn?.addEventListener('click', togglePlay);
-    miniPlay?.addEventListener('click', togglePlay);
-
-    hero?.addEventListener('timeupdate', ()=> {
-      timeBadge && (timeBadge.textContent = format(hero.currentTime || 0));
-      if (hero.duration) progress.style.width = ((hero.currentTime / hero.duration) * 100) + '%';
-    });
-
-    // purchase toast
-    const purchaseToast = document.getElementById('purchaseToast');
-    function showPurchase(name='Trader', country='World', message='Just purchased!', delay=0){
-      document.getElementById('toastName').textContent = name;
-      document.getElementById('toastMsg').textContent = country + ' — ' + message;
-      setTimeout(()=> purchaseToast.classList.add('show'), delay);
-      setTimeout(()=> purchaseToast.classList.remove('show'), delay + 4200);
-    }
-
-    const demo = [['Anna Kowalski','Poland','Just purchased!'], ['Sophie Martin','France','Just purchased!'], ['Lucas M','Brazil','Just purchased!']];
-    let di = 0;
-    setInterval(()=>{ const [n,c,m] = demo[di % demo.length]; showPurchase(n,c,m,0); di++; }, 21000);
-    setTimeout(()=> showPurchase('Anna Kowalski','Poland','Just purchased!',300), 900);
-
-    // mini Candles chart (same approach as before)
-    (function drawDemoChart(){
-      const canvas = document.getElementById('miniChart');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      function fit(){ canvas.width = canvas.clientWidth * devicePixelRatio; canvas.height = canvas.clientHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0); }
-      fit(); window.addEventListener('resize', fit);
-      const N=60; let price = 200; const data=[];
-      for (let i=0;i<N;i++){ const open = price; const close = price + (Math.random()-0.45)*8; const high=Math.max(open,close)+Math.random()*6; const low=Math.min(open,close)-Math.random()*6; data.push({open,close,high,low}); price = close; }
-      function render(){
-        const w = canvas.clientWidth, h = canvas.clientHeight; ctx.clearRect(0,0,w,h);
-        ctx.fillStyle='rgba(255,255,255,0.02)'; ctx.fillRect(0,0,w,h);
-        const margin=6, cw=(w-margin*2)/data.length; const values = data.flatMap(d=>[d.high,d.low]); const min=Math.min(...values), max=Math.max(...values);
-        function y(v){ return margin + (h-margin*2)*(1 - (v-min)/(max-min)); }
-        for (let i=0;i<data.length;i++){
-          const x = margin + i*cw + cw*0.2; const d = data[i];
-          const col = d.close>=d.open ? '#2bff9a' : '#ff6b6b';
-          ctx.fillStyle = col; ctx.strokeStyle = col; ctx.lineWidth = Math.max(1,cw*0.06);
-          ctx.beginPath(); ctx.moveTo(x+cw*0.35, y(d.high)); ctx.lineTo(x+cw*0.35, y(d.low)); ctx.stroke();
-          const bodyTop = y(Math.max(d.open,d.close)); const bodyH = Math.max(2, Math.abs(y(d.open)-y(d.close)));
-          ctx.fillRect(x, bodyTop, cw*0.7, bodyH);
-        }
+      function sample(img){
+        try{
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          const W = 80, H = 80;
+          canvas.width = W; canvas.height = H;
+          ctx.drawImage(img, 0, 0, W, H);
+          const data = ctx.getImageData(0,0,W,H).data;
+          const counts = {};
+          for(let i=0;i<data.length;i+=4){
+            const r=Math.round(data[i]/16)*16; const g=Math.round(data[i+1]/16)*16; const b=Math.round(data[i+2]/16)*16;
+            const key = `${r},${g},${b}`; counts[key] = (counts[key]||0)+1;
+          }
+          const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+          const colors = sorted.slice(0,4).map(s=>s[0].split(',').map(Number));
+          if(colors.length===0) return null;
+          const [r1,g1,b1] = colors[0];
+          const [r2,g2,b2] = colors[1] || [Math.max(0,r1-40),Math.max(0,g1-40),Math.max(0,b1-40)];
+          const [r3,g3,b3] = colors[2] || [Math.min(255,r1+40),Math.min(255,g1+40),Math.min(255,b1+40)];
+          return {accent1:rgbToHex(r1,g1,b1), accent2:rgbToHex(r2,g2,b2), accent3:rgbToHex(r3,g3,b3)};
+        }catch(e){ return null; }
       }
-      render();
+
+      function applyPalette(p){
+        const root = document.documentElement.style;
+        root.setProperty('--accent-1', p.accent1);
+        root.setProperty('--accent-2', p.accent2);
+        root.setProperty('--accent-3', p.accent3 || '#2a5bff');
+        // update glow color
+        const glow = document.getElementById('glow');
+        if(glow) glow.style.background = `radial-gradient(300px 140px at 50% 35%, ${p.accent2+'22'}, transparent)`;
+        // apply CTA gradient using CSS variables inline (Tailwind uses classes for layout)
+        const ctas = document.getElementsByClassName('cta-btn');
+        for(const el of ctas){ el.style.background = `linear-gradient(90deg, ${p.accent1}, ${p.accent2})`; }
+      }
+
+      function tryLoad(){
+        if(!logo || !logo.src) return applyPalette(fallback);
+        const img = new Image(); img.crossOrigin='anonymous';
+        img.onload = function(){ const p = sample(img) || fallback; applyPalette(p); };
+        img.onerror = function(){ applyPalette(fallback); };
+        img.src = logo.src;
+      }
+
+      window.addEventListener('load', function(){ setTimeout(tryLoad, 200); });
     })();
-
-    // Testimonials track (compact cards)
-    const testimonials = [
-      'A game-changer — more confidence on every trade.',
-      'Signals are fast and clear; saved me time and money.',
-      'Real-time volume insight that actually moves the needle.',
-      'Low-latency alerts made my entries cleaner.'
-    ];
-    const track = document.getElementById('track');
-    testimonials.forEach((t,i) => {
-      const c = document.createElement('div');
-      c.className = 'min-w-[220px] bg-[var(--card-bg)] p-3 rounded-xl border border-[rgba(255,255,255,0.03)]';
-      c.innerHTML = `<div class="flex gap-3 items-start">
-        <div class="avatar-fake">${i+1}</div>
-        <div><div class="font-semibold">Trader ${i+1} <span class="text-[--muted] text-xs">• Verified</span></div>
-        <div class="text-xs text-[--muted] mt-2">${t}</div></div>
-      </div>`;
-      track.appendChild(c);
-    });
-
-    // footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // ensure lucide icons replaced after dynamic content
-    window.addEventListener('load', ()=> lucide.replace());
   </script>
 </body>
 </html>

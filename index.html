@@ -3,20 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Abrox — Tailwind Landing</title>
+  <title>Abrox — Tailwind Landing (Fixed Palette)</title>
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /*
+      IMPORTANT: This version hardcodes a tested palette (magenta → violet → blue)
+      to avoid deployment failures related to cross-origin image sampling.
+      Use ./assets/abrox-source.png (relative path) and ensure the file name is exact (case-sensitive).
+    */
     :root{
-      --accent-1: #7b2cff; /* will be replaced by JS */
-      --accent-2: #ff2fa6; /* will be replaced by JS */
-      --accent-3: #2a5bff;
+      --accent-1: #7b2cff; /* violet */
+      --accent-2: #ff2fb0; /* magenta */
+      --accent-3: #2a5bff; /* vivid blue */
       --bg-1: #050306;
       --bg-2: #0b0410;
-      --muted: rgba(255,255,255,0.6);
+      --muted: rgba(255,255,255,0.68);
     }
 
-    /* soft / neumorphic card using CSS variables for color harmony */
     .soft-card{
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border-radius: 18px;
@@ -36,39 +40,31 @@
       color: transparent;
     }
 
-    /* large subtle glow behind the centered logo */
     .logo-glow{
       filter: drop-shadow(0 18px 40px rgba(123,44,255,0.25));
     }
 
-    /* responsive mock hero image container to keep the logo balanced */
     .logo-stage{border-radius:20px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));}
 
-    /* CTA gradient using CSS variables */
     .cta-btn{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));}
 
-    /* small utility to use CSS variable for border color on soft UI elements */
     .soft-border{border: 1px solid rgba(255,255,255,0.03)}
 
-    /* make sure the logo image never overflows */
     .brand-img{max-width:240px;height:auto}
-
   </style>
 </head>
 <body class="hero-bg min-h-screen flex items-center justify-center px-6 py-12 text-white">
   <div class="max-w-6xl w-full">
-    <!-- Header -->
     <header class="flex items-center justify-between mb-8">
       <div class="flex items-center gap-4">
-        <img id="brandLogo" src="assets/abrox-source.png" alt="Abrox" class="h-12 w-auto"/>
+        <!-- Use exact relative path: ./assets/abrox-source.png -->
+        <img id="brandLogo" src="./assets/abrox-source.png" alt="Abrox" class="h-12 w-auto"/>
         <div class="text-lg font-extrabold tracking-wide">Abrox</div>
       </div>
       <div class="soft-card px-4 py-2 text-sm text-gray-300 soft-border">LIVE • <span id="liveCount" class="font-bold text-white">16,553</span></div>
     </header>
 
-    <!-- HERO -->
     <section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-      <!-- left column: text -->
       <div class="space-y-6">
         <div class="text-sm uppercase text-gray-300 tracking-widest">Professional Trading Intelligence</div>
         <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Transform how you <span class="accent-gradient">trade</span> — fast, clean, confident</h1>
@@ -95,19 +91,16 @@
         </div>
       </div>
 
-      <!-- right column: large logo stage (balanced) -->
       <aside class="flex items-center justify-center">
         <div class="logo-stage w-full max-w-md shadow-2xl flex items-center justify-center">
-          <!-- big centered logo with glow and subtle vignette to balance the composition -->
           <div class="relative flex items-center justify-center">
-            <div id="glow" class="absolute inset-0 rounded-lg" style="background: radial-gradient(300px 140px at 50% 35%, rgba(255,0,150,0.12), transparent);"></div>
-            <img id="heroLogo" src="assets/abrox-source.png" alt="Abrox large" class="brand-img logo-glow z-10"/>
+            <div id="glow" class="absolute inset-0 rounded-lg" style="background: radial-gradient(300px 140px at 50% 35%, rgba(255,47,176,0.12), transparent);"></div>
+            <img id="heroLogo" src="./assets/abrox-source.png" alt="Abrox large" class="brand-img logo-glow z-10"/>
           </div>
         </div>
       </aside>
     </section>
 
-    <!-- FOOTER small -->
     <footer class="mt-12 flex items-center justify-between text-sm text-gray-300">
       <div>© Abrox • Crafted with care</div>
       <div>Terms • Privacy</div>
@@ -115,60 +108,16 @@
   </div>
 
   <script>
-    // Palette extraction from the provided logo (assets/abrox-source.png)
-    ;(function(){
-      const logo = document.getElementById('brandLogo');
-      // fallback palette tuned to the logo you uploaded (vibrant magenta -> violet -> blue)
-      const fallback = {accent1:'#9b2cff', accent2:'#ff2fb0', accent3:'#2a5bff', bg1:'#050306', bg2:'#0b0410', muted:'#bfc6ff'};
-
-      function rgbToHex(r,g,b){ return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join(''); }
-
-      function sample(img){
-        try{
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          const W = 80, H = 80;
-          canvas.width = W; canvas.height = H;
-          ctx.drawImage(img, 0, 0, W, H);
-          const data = ctx.getImageData(0,0,W,H).data;
-          const counts = {};
-          for(let i=0;i<data.length;i+=4){
-            const r=Math.round(data[i]/16)*16; const g=Math.round(data[i+1]/16)*16; const b=Math.round(data[i+2]/16)*16;
-            const key = `${r},${g},${b}`; counts[key] = (counts[key]||0)+1;
-          }
-          const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-          const colors = sorted.slice(0,4).map(s=>s[0].split(',').map(Number));
-          if(colors.length===0) return null;
-          const [r1,g1,b1] = colors[0];
-          const [r2,g2,b2] = colors[1] || [Math.max(0,r1-40),Math.max(0,g1-40),Math.max(0,b1-40)];
-          const [r3,g3,b3] = colors[2] || [Math.min(255,r1+40),Math.min(255,g1+40),Math.min(255,b1+40)];
-          return {accent1:rgbToHex(r1,g1,b1), accent2:rgbToHex(r2,g2,b2), accent3:rgbToHex(r3,g3,b3)};
-        }catch(e){ return null; }
-      }
-
-      function applyPalette(p){
-        const root = document.documentElement.style;
-        root.setProperty('--accent-1', p.accent1);
-        root.setProperty('--accent-2', p.accent2);
-        root.setProperty('--accent-3', p.accent3 || '#2a5bff');
-        // update glow color
-        const glow = document.getElementById('glow');
-        if(glow) glow.style.background = `radial-gradient(300px 140px at 50% 35%, ${p.accent2+'22'}, transparent)`;
-        // apply CTA gradient using CSS variables inline (Tailwind uses classes for layout)
-        const ctas = document.getElementsByClassName('cta-btn');
-        for(const el of ctas){ el.style.background = `linear-gradient(90deg, ${p.accent1}, ${p.accent2})`; }
-      }
-
-      function tryLoad(){
-        if(!logo || !logo.src) return applyPalette(fallback);
-        const img = new Image(); img.crossOrigin='anonymous';
-        img.onload = function(){ const p = sample(img) || fallback; applyPalette(p); };
-        img.onerror = function(){ applyPalette(fallback); };
-        img.src = logo.src;
-      }
-
-      window.addEventListener('load', function(){ setTimeout(tryLoad, 200); });
-    })();
+    // Minimal script: no canvas sampling to avoid CORS issues on GitHub file preview.
+    // Quick helper to ensure images exist and log friendly errors to the console.
+    window.addEventListener('load', ()=>{
+      const imgs = document.querySelectorAll('img');
+      imgs.forEach(img=>{
+        img.addEventListener('error', ()=>{
+          console.error('Image failed to load:', img.src);
+        });
+      });
+    });
   </script>
 </body>
 </html>
